@@ -11,18 +11,25 @@ endif()
 # Define sources and executable
 set(EXECUTABLE_NAME "Project_Sacrifice")
 
-set(SOURCE_FILES source/main.cpp)
+set(SOURCE_FILES source/main.cpp source/Entity.cpp source/Entity.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
 # Detect and add SFML
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
 find_package(SFML 2 REQUIRED system window graphics audio)
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
+endif()
+
+# Detect and add BOX2D
+find_package(BOX2D REQUIRED)
+if(BOX2D_FOUND)
+    include_directories(${BOX2D_INCLUDE_DIR})
+    target_link_libraries(${EXECUTABLE_NAME} ${BOX2D_LIBRARIES})
 endif()
 
 
