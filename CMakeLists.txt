@@ -11,7 +11,7 @@ endif()
 # Define sources and executable
 set(EXECUTABLE_NAME "Project_Sacrifice")
 
-set(SOURCE_FILES source/main.cpp source/Entity.cpp source/Entity.h)
+set(SOURCE_FILES source/main.cpp source/Entity.cpp source/Entity.h source/World.cpp source/World.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
