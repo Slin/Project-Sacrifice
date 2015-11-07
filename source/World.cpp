@@ -34,7 +34,11 @@ namespace PS
 	{
 		new Background();
 		new PhysicsEntity();
-		new Ragdoll();
+		for(int i = 0; i < 25; ++i)
+		{
+			new Ragdoll();
+		}
+
 
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;

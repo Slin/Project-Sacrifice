@@ -38,7 +38,7 @@ namespace PS
 	{
 		b2Vec2 position = _body->GetPosition();
 		float32 angle = _body->GetAngle();
-		_object->setRotation(angle*180.0f/M_PI);
+		_object->setRotation(angle*180.0f/3.14f);
 		_object->setPosition(position.x/World::WORLD_TO_BOX2D, position.y/World::WORLD_TO_BOX2D);
 	}
 
