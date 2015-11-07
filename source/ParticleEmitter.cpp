@@ -48,6 +48,11 @@ namespace PS
 
 	void ParticleEmitter::Draw(sf::RenderWindow *window)
 	{
+
+	}
+
+	void ParticleEmitter::DrawLate(sf::RenderWindow *window)
+	{
 		for(int i = 0; i < 10000; i++)
 		{
 			if(!_particles[i])

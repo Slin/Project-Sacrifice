@@ -85,18 +85,34 @@ namespace PS
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			if(_priest->GetAnimationTimer() <= 0.0001f)
+			if(!_keyWasPressed)
 			{
-				_priest->Animate();
+				if(!_isKilling)
+				{
+					if(_priest->GetAnimationTimer() <= 0.0001f)
+					{
+						_priest->Animate();
+
+						if(_currentAnimal)
+						{
+							_isKilling = true;
+							_bloodParticles->Bleed();
+						}
+					}
+				}
 			}
+			_keyWasPressed = true;
+		}
+		else
+		{
+			_keyWasPressed = false;
 		}
 
-		if(_priest->GetAnimationTimer() > 0.09 && _currentAnimal)
+		if(_priest->GetAnimationTimer() > 0.09 && _currentAnimal && _isKilling)
 		{
 			_currentAnimal->Kill();
 			_currentAnimal = nullptr;
-
-			_bloodParticles->Bleed();
+			_isKilling = false;
 		}
 
 		_spawnTimer += timeStep;

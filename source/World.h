@@ -57,6 +57,8 @@ namespace PS
 		ParticleEmitter *_bloodParticles;
 
 		float _spawnTimer;
+		bool _isKilling;
+		bool _keyWasPressed;
 	};
 }
 
