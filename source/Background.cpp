@@ -72,10 +72,17 @@ namespace PS
 		groundBox.SetAsBox(10.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 
-		groundBodyDef.position.Set(window->getSize().x+200.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
+		groundBodyDef.position.Set((window->getSize().x+200.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
 		groundBox.SetAsBox(10.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
+
+
+		_altar = new sf::Sprite();
+		_altar->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/altar.png"));
+		_altar->setScale(_mainBackground->getScale()*0.8f);
+		_altar->setOrigin(_altar->getLocalBounds().width/2.0f, _altar->getLocalBounds().height/2.0f);
+		_altar->setPosition(window->getSize().x*0.5f, 600.0f*world->GetScaleFactor());
 	}
 
 	Background::~Background()
@@ -91,5 +98,10 @@ namespace PS
 	void Background::Draw(sf::RenderWindow *window)
 	{
 		window->draw(*_mainBackground);
+	}
+
+	void Background::DrawLate(sf::RenderWindow *window)
+	{
+		window->draw(*_altar);
 	}
 }

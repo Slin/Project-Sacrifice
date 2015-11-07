@@ -17,9 +17,11 @@ namespace PS
 
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
+		void DrawLate(sf::RenderWindow *window);
 
 	private:
 		sf::Sprite *_mainBackground;
+		sf::Sprite *_altar;
 	};
 }
 

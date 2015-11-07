@@ -16,6 +16,7 @@ namespace PS
 {
 	class Priest;
 	class Animal;
+	class ParticleEmitter;
 	class World
 	{
 	public:
@@ -53,6 +54,7 @@ namespace PS
 
 		Priest *_priest;
 		Animal *_currentAnimal;
+		ParticleEmitter *_bloodParticles;
 
 		float _spawnTimer;
 	};

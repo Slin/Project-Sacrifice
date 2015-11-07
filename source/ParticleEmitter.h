@@ -19,6 +19,8 @@ namespace PS
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 
+		void Bleed();
+
 	private:
 		BloodParticle *_particles[10000];
 		int _currentParticle;

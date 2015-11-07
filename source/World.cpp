@@ -35,8 +35,8 @@ namespace PS
 	void World::Loop()
 	{
 		new Background();
-		new ParticleEmitter();
 		_priest = new Priest();
+		_bloodParticles = new ParticleEmitter();
 /*		new PhysicsEntity();
 		for(int i = 0; i < 100; ++i)
 		{
@@ -93,6 +93,8 @@ namespace PS
 		{
 			_currentAnimal->Kill();
 			_currentAnimal = nullptr;
+
+			_bloodParticles->Bleed();
 		}
 
 		_spawnTimer += timeStep;

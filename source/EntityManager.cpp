@@ -29,6 +29,11 @@ namespace PS
 		{
 			entity->Draw(window);
 		}
+
+		for(Entity *entity:_entities)
+		{
+			entity->DrawLate(window);
+		}
 	}
 
 	void EntityManager::RemoveEntity(PS::Entity *entity)

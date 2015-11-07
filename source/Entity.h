@@ -23,6 +23,10 @@ namespace PS
 
 		virtual void Update(float timeStep) = 0;
 		virtual void Draw(sf::RenderWindow *window) = 0;
+		virtual void DrawLate(sf::RenderWindow *window)
+		{
+
+		};
 	};
 }
 
