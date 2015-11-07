@@ -41,6 +41,8 @@ namespace PS
 
 		static World *GetInstance();
 
+		static const float WORLD_TO_BOX2D;
+
 	private:
 		World();
 		static World *_instance;

@@ -9,6 +9,7 @@
 namespace PS
 {
 	World *World::_instance = 0;
+	const float World::WORLD_TO_BOX2D = 0.01f;
 
 	World *World::GetInstance()
 	{
@@ -32,13 +33,6 @@ namespace PS
 	{
 		new Background();
 		new PhysicsEntity();
-
-		b2BodyDef groundBodyDef;
-		groundBodyDef.position.Set(0.0f, 500.0f);
-		b2Body *groundBody = _physicsWorld->CreateBody(&groundBodyDef);
-		b2PolygonShape groundBox;
-		groundBox.SetAsBox(1000.0f, 10.0f);
-		groundBody->CreateFixture(&groundBox, 0.0f);
 
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
