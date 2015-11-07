@@ -25,7 +25,8 @@ namespace PS
 
 	World::World() : _currentAnimal(nullptr)
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Project Sacrifice");
+
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
 
 		b2Vec2 gravity(0.0f, 9.81f);
@@ -40,8 +41,9 @@ namespace PS
 /*		new PhysicsEntity();
 		for(int i = 0; i < 100; ++i)
 		{
-			new Ragdoll();
+
 		}*/
+		new Ragdoll();
 
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;

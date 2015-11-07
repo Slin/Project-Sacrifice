@@ -301,10 +301,10 @@ namespace PS
 
 		b2RevoluteJointDef legleft2JointDef = getDefGetJointDef(
 				_body_leg_left,_body_leg_left2,
+				-15*World::GetInstance()->GetScaleFactor(),
+				_shape_leg_left->getGlobalBounds().height/2.f  -11*World::GetInstance()->GetScaleFactor(),
 				0,
-				_shape_leg_left->getGlobalBounds().height/1.7f,
-				0,
-				-_shape_leg_left2->getGlobalBounds().height/4.0f);
+				-_shape_leg_left2->getGlobalBounds().height/2.0f+18*World::GetInstance()->GetScaleFactor());
 		_leg_left2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legleft2JointDef);
 
 
@@ -319,10 +319,10 @@ namespace PS
 
 		b2RevoluteJointDef legright2JointDef = getDefGetJointDef(
 				_body_leg_right,_body_leg_right2,
+				-15*World::GetInstance()->GetScaleFactor(),
+				_shape_leg_right->getGlobalBounds().height/2.f  -11*World::GetInstance()->GetScaleFactor(),
 				0,
-				_shape_leg_right->getGlobalBounds().height/1.7f,
-				0,
-				-_shape_leg_right2->getGlobalBounds().height/4.0f);
+				-_shape_leg_right2->getGlobalBounds().height/2.0f+18*World::GetInstance()->GetScaleFactor());
 		_leg_right2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legright2JointDef);
 
 

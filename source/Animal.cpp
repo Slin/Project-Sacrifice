@@ -82,13 +82,13 @@ namespace PS
 		if(_leftHalfBody && _leftHalf)
 		{
 			_leftHalf->setPosition(_leftHalfBody->GetPosition().x/World::WORLD_TO_BOX2D, _leftHalfBody->GetPosition().y/World::WORLD_TO_BOX2D);
-			_leftHalf->setRotation(_leftHalfBody->GetAngle()*180.0f/M_PI);
+			_leftHalf->setRotation(_leftHalfBody->GetAngle()*180.0f/3.14f);
 		}
 
 		if(_rightHalfBody && _rightHalf)
 		{
 			_rightHalf->setPosition(_rightHalfBody->GetPosition().x/World::WORLD_TO_BOX2D, _rightHalfBody->GetPosition().y/World::WORLD_TO_BOX2D);
-			_rightHalf->setRotation(_rightHalfBody->GetAngle()*180.0f/M_PI);
+			_rightHalf->setRotation(_rightHalfBody->GetAngle()*180.0f/3.14f);
 		}
 	}
 
