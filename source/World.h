@@ -8,8 +8,10 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include <Box2D/Box2D.h>
 #include "TexturePool.h"
+#include "SoundPool.h"
 #include "EntityManager.h"
 
 namespace PS
@@ -62,6 +64,9 @@ namespace PS
 		bool _keyWasPressed;
 
 		float _spawnTime;
+
+		sf::Sound _splatSound;
+		sf::Sound _stabSound;
 	};
 }
 

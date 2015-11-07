@@ -43,6 +43,7 @@ namespace PS
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
+		SoundPool::GetInstance();
 
 		while(_window->isOpen())
 		{
@@ -92,6 +93,16 @@ namespace PS
 						{
 							_isKilling = true;
 							_bloodParticles->Bleed();
+
+							_splatSound.setBuffer(*SoundPool::GetInstance()->PlaySplat());
+							_splatSound.play();
+
+							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
+							_stabSound.play();
+
+						} else {
+							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
+							_stabSound.play();
 						}
 					}
 				}
