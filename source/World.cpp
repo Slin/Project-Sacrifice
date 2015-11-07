@@ -3,7 +3,7 @@
 //
 
 #include "World.h"
-#include "Entity.h"
+#include "PhysicsEntity.h"
 
 namespace PS
 {
@@ -20,7 +20,9 @@ namespace PS
 
 	World::World()
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Project Sacrifice");
+		_window = new sf::RenderWindow(sf::VideoMode(960, 540), "Project Sacrifice");
+		_scaleFactor = _window->getSize().y/1080.0f;
+		_aspectRatio = _window->getSize().y/_window->getSize().x;
 
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
@@ -28,9 +30,7 @@ namespace PS
 
 	void World::Loop()
 	{
-		Entity box;
-		box.setPosition(sf::Vector2<float>(50.0f, 50.0f));
-		//box.setSize(sf::Vector2<float>(50.0f, 50.0f));
+		PhysicsEntity box;
 
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(0.0f, 500.0f);
@@ -47,7 +47,7 @@ namespace PS
 			sf::Event Event;
 			while(_window->pollEvent(Event))
 			{
-				if (Event.type == sf::Event::Closed)
+				if(Event.type == sf::Event::Closed)
 					_window->close();
 			}
 
@@ -63,7 +63,8 @@ namespace PS
 			}
 
 			_window->clear(sf::Color::Black);
-			_window->draw(box);
+
+			box.Draw(_window);
 
 			_window->display();
 		}

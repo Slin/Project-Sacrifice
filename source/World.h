@@ -23,6 +23,16 @@ namespace PS
 			return _physicsWorld;
 		}
 
+		float GetScaleFactor()
+		{
+			return _scaleFactor;
+		}
+
+		float GetAspectRatio()
+		{
+			return _scaleFactor;
+		}
+
 		static World *GetInstance();
 
 	private:
@@ -30,6 +40,8 @@ namespace PS
 		static World *_instance;
 		b2World *_physicsWorld;
 		sf::RenderWindow *_window;
+		float _scaleFactor;
+		float _aspectRatio;
 	};
 }
 

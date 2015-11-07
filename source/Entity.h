@@ -5,23 +5,15 @@
 #ifndef PROJECT_SACRIFICE_ENTITY_H
 #define PROJECT_SACRIFICE_ENTITY_H
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <Box2D/Box2D.h>
-#include <SFML/Graphics/Sprite.hpp>
+#include "World.h"
 
 namespace PS
 {
-	class Entity : public sf::Sprite
+	class Entity
 	{
 	public:
-		Entity();
-
-		void Update();
-
-	private:
-		sf::Texture *texture;
-		b2BodyDef _bodyDef;
-		b2Body *_body;
+		virtual void Update() = 0;
+		virtual void Draw(sf::RenderWindow *window) = 0;
 	};
 }
 
