@@ -10,9 +10,9 @@ namespace PS
 	Ragdoll::Ragdoll(){
 
 		float density=1.0f;
-		float friction = 0.7f;
+		float friction = 0.3f;
 
-		position.x = 500;//rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
+		position.x = rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
 		position.y = rand() % 100;
 
 		sf::Vector2f tempVec;
@@ -116,7 +116,7 @@ namespace PS
 							(_shape_head->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
 		//b2FixtureDef fixtureDefhead;
 		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density;
+		fixtureDef.density = density*.5f;
 		fixtureDef.friction = friction;
 		_body_head->CreateFixture(&fixtureDef);
 
@@ -144,11 +144,12 @@ namespace PS
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_arm_left2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
 							(_shape_arm_left2->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
-		//b2FixtureDef fixtureDefhead;
-		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density;
-		fixtureDef.friction = friction;
-		_body_arm_left2->CreateFixture(&fixtureDef);
+		b2FixtureDef fixtureDefhead2;
+		fixtureDefhead2.shape = &dynamicBox;
+		fixtureDefhead2.density = density;
+		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.filter.maskBits=0;
+		_body_arm_left2->CreateFixture(&fixtureDefhead2);
 
 
 		//b2d arm right
@@ -179,10 +180,11 @@ namespace PS
 		dynamicBox.SetAsBox((_shape_arm_right2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
 							(_shape_arm_right2->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
 		//b2FixtureDef fixtureDefhead;
-		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density;
-		fixtureDef.friction = friction;
-		_body_arm_right2->CreateFixture(&fixtureDef);
+		fixtureDefhead2.shape = &dynamicBox;
+		fixtureDefhead2.density = density;
+		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.filter.maskBits=0;
+		_body_arm_right2->CreateFixture(&fixtureDefhead2);
 
 		// b2d leg left
 		_bodyDef_leg_left.type = b2_dynamicBody;
@@ -255,38 +257,47 @@ namespace PS
 				-_shape_torso->getGlobalBounds().height/3.f,
 				_shape_head->getGlobalBounds().width/6.f,
 				_shape_head->getGlobalBounds().height/3.f);
+		headJointDef.enableLimit = true;
+		headJointDef.lowerAngle = -90 * DEGTORAD;
+		headJointDef.upperAngle =  90 * DEGTORAD;
 		_head_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&headJointDef);
 
 		b2RevoluteJointDef armLeftJointDef = getDefGetJointDef(
 				_body_torso,_body_arm_left,
-				_shape_torso->getGlobalBounds().width/3.f,
+				_shape_torso->getGlobalBounds().width/4.f,
 				-_shape_torso->getGlobalBounds().height/4.f,
 				0,
-				-_shape_arm_left->getGlobalBounds().height/4.0f);
+				-_shape_arm_left->getGlobalBounds().height/3.5f);
 		_arm_left_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armLeftJointDef);
 
 			b2RevoluteJointDef armleft2JointDef = getDefGetJointDef(
 				_body_arm_left,_body_arm_left2,
 				0,
-				_shape_arm_left->getGlobalBounds().height/1.7f,
+				_shape_arm_left->getGlobalBounds().height/2.f,
 				_shape_arm_left2->getGlobalBounds().width/4.f,
-				-_shape_arm_left2->getGlobalBounds().height/3.f);
+				-_shape_arm_left2->getGlobalBounds().height/2.3f);
+		armleft2JointDef.enableLimit = true;
+		armleft2JointDef.lowerAngle = 0 * DEGTORAD;
+		armleft2JointDef.upperAngle =  160 * DEGTORAD;
 		_arm_left2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armleft2JointDef);
 
 		b2RevoluteJointDef armRightJointDef = getDefGetJointDef(
 				_body_torso,_body_arm_right,
-				_shape_torso->getGlobalBounds().width/3.f,
+				_shape_torso->getGlobalBounds().width/4.f,
 				-_shape_torso->getGlobalBounds().height/4.f,
 				0,
-				-_shape_arm_right->getGlobalBounds().height/4.0f);
+				-_shape_arm_right->getGlobalBounds().height/3.5f);
 		_arm_right_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armRightJointDef);
 
 		b2RevoluteJointDef armright2JointDef = getDefGetJointDef(
 				_body_arm_right,_body_arm_right2,
 				0,
-				_shape_arm_right->getGlobalBounds().height/1.7f,
+				_shape_arm_right->getGlobalBounds().height/2.f,
 				_shape_arm_right2->getGlobalBounds().width/4.f,
-				-_shape_arm_right2->getGlobalBounds().height/3.f);
+				-_shape_arm_right2->getGlobalBounds().height/2.3f);
+		armright2JointDef.enableLimit = true;
+		armright2JointDef.lowerAngle = 0 * DEGTORAD;
+		armright2JointDef.upperAngle =  160 * DEGTORAD;
 		_arm_right2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armright2JointDef);
 
 
@@ -297,14 +308,20 @@ namespace PS
 				_shape_torso->getGlobalBounds().height/2.f,
 				0,
 				-_shape_leg_left->getGlobalBounds().height/3.0f);
+		legLeftJointDef.enableLimit = true;
+		legLeftJointDef.lowerAngle = -90 * DEGTORAD;
+		legLeftJointDef.upperAngle =  160 * DEGTORAD;
 		_leg_left_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legLeftJointDef);
 
 		b2RevoluteJointDef legleft2JointDef = getDefGetJointDef(
 				_body_leg_left,_body_leg_left2,
-				-15*World::GetInstance()->GetScaleFactor(),
-				_shape_leg_left->getGlobalBounds().height/2.f  -11*World::GetInstance()->GetScaleFactor(),
+				-5*World::GetInstance()->GetScaleFactor(),
+				_shape_leg_left->getGlobalBounds().height/2.f  -4*World::GetInstance()->GetScaleFactor(),
 				0,
-				-_shape_leg_left2->getGlobalBounds().height/2.0f+18*World::GetInstance()->GetScaleFactor());
+				-_shape_leg_left2->getGlobalBounds().height/2.0f+12*World::GetInstance()->GetScaleFactor());
+		legleft2JointDef.enableLimit = true;
+		legleft2JointDef.lowerAngle = -90 * DEGTORAD;
+		legleft2JointDef.upperAngle =  0 * DEGTORAD;
 		_leg_left2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legleft2JointDef);
 
 
@@ -315,14 +332,21 @@ namespace PS
 				_shape_torso->getGlobalBounds().height/2.f,
 				0,
 				-_shape_leg_right->getGlobalBounds().height/3.0f);
+		legRightJointDef.enableLimit = true;
+		legRightJointDef.lowerAngle = -90 * DEGTORAD;
+		legRightJointDef.upperAngle =  160 * DEGTORAD;
 		_leg_right_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legRightJointDef);
 
 		b2RevoluteJointDef legright2JointDef = getDefGetJointDef(
 				_body_leg_right,_body_leg_right2,
-				-15*World::GetInstance()->GetScaleFactor(),
-				_shape_leg_right->getGlobalBounds().height/2.f  -11*World::GetInstance()->GetScaleFactor(),
+				-5*World::GetInstance()->GetScaleFactor(),
+				_shape_leg_right->getGlobalBounds().height/2.f  -4*World::GetInstance()->GetScaleFactor(),
 				0,
-				-_shape_leg_right2->getGlobalBounds().height/2.0f+18*World::GetInstance()->GetScaleFactor());
+				-_shape_leg_right2->getGlobalBounds().height/2.0f+12*World::GetInstance()->GetScaleFactor());
+
+		legright2JointDef.enableLimit = true;
+		legright2JointDef.lowerAngle = -90 * DEGTORAD;
+		legright2JointDef.upperAngle =  0 * DEGTORAD;
 		_leg_right2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legright2JointDef);
 
 
@@ -360,7 +384,49 @@ namespace PS
 
 	Ragdoll::~Ragdoll()
 	{
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_head_joint );
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_arm_left_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_arm_right_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_leg_left_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_leg_right_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_arm_left2_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_arm_right2_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_leg_left2_joint);
+		World::GetInstance()->GetPhysicsWorld()->DestroyJoint(_leg_right2_joint);
 
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_head );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_torso );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_arm_left );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_arm_right );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_leg_left );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_leg_right );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody(  _body_arm_left2);
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_arm_right2 );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_leg_left2 );
+		World::GetInstance()->GetPhysicsWorld()->DestroyBody( _body_leg_right2 );
+
+		delete _head_joint;
+		delete _arm_left_joint;
+		delete _arm_right_joint;
+		delete _leg_left_joint;
+		delete _leg_right_joint;
+		delete _arm_left2_joint;
+		delete _arm_right2_joint;
+		delete _leg_left2_joint;
+		delete _leg_right2_joint;
+
+		delete _shape_torso;
+		delete _shape_head;
+		delete _shape_arm_left;
+		delete _shape_arm_right;
+		delete _shape_leg_left;
+		delete _shape_leg_right;
+		delete _shape_arm_left2;
+		delete _shape_arm_right2;
+		delete _shape_leg_left2;
+		delete _shape_leg_right2;
+		
+		
 	}
 
 	void Ragdoll::Update(float timeStep)

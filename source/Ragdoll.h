@@ -20,7 +20,7 @@ namespace PS
 		void Draw(sf::RenderWindow *window);
 
 	private:
-
+		float DEGTORAD = 3.14f/180.f;
 		b2Vec2 reactionForce;
 
 		b2BodyDef _bodyDef_torso;
