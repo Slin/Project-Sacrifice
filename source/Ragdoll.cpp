@@ -12,7 +12,7 @@ namespace PS
 		float density=1.0f;
 		float friction = 0.3f;
 
-		position.x = rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
+		position.x =600;// rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
 		position.y = rand() % 100;
 
 		sf::Vector2f tempVec;
@@ -486,23 +486,42 @@ namespace PS
 //		CheckBreakForce(_head_joint,timeStep);
 //		CheckBreakForce(_arm_left_joint,timeStep);
 //		CheckBreakForce(_arm_right_joint,timeStep);
-//		CheckBreakForce(_leg_left_joint,timeStep);
+
+		if(!headJointDetached){
+			headJointDetached=CheckBreakForce(_head_joint,timeStep);
+		}
+		if(!armLJointDetached){
+			armLJointDetached=CheckBreakForce(_arm_left_joint,timeStep);
+		}
+		if(!armRJointDetached){
+			armRJointDetached=CheckBreakForce(_arm_right_joint,timeStep);
+		}
+
+		if(!legLJointDetached){
+			legLJointDetached=CheckBreakForce(_leg_left_joint,timeStep);
+		}
+
+		if(!legRJointDetached){
+			legRJointDetached=CheckBreakForce(_leg_right_joint,timeStep);
+		}
 //		CheckBreakForce(_leg_right_joint,timeStep);
 
 	}
-	void Ragdoll::CheckBreakForce(b2RevoluteJoint* joint,float timeStep)
+	bool Ragdoll::CheckBreakForce(b2RevoluteJoint* joint,float timeStep)
 	{
 		if(joint!=NULL)
 		{
-//			std::cout << "time: " << timeStep << std::endl;
+
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
-
-			if(forceModuleSq > 1)
+			std::cout << "force: " << forceModuleSq << std::endl;
+			if(forceModuleSq > 8000)
 			{
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);
+				return true;
 			}
 		}
+		return false;
 	}
 	void Ragdoll::Draw(sf::RenderWindow *window)
 	{

@@ -43,7 +43,11 @@ namespace PS
 		b2RevoluteJoint *_arm_right2_joint;
 		b2RevoluteJoint *_leg_left2_joint;
 		b2RevoluteJoint *_leg_right2_joint;
-
+		bool headJointDetached=false;
+		bool armLJointDetached=false;
+		bool armRJointDetached=false;
+		bool legLJointDetached=false;
+		bool legRJointDetached=false;
 		b2Body *_body_head;
 		b2Body *_body_torso;
 		b2Body *_body_arm_left;
@@ -71,7 +75,7 @@ namespace PS
 		b2RevoluteJointDef getDefGetJointDef(b2Body *bodyA, b2Body *bodyB, float32 anchorAX, float32 anchorAY, float32 anchorBX, float32 anchorBY) const;
 
 		b2RevoluteJointDef jointDef;
-		void CheckBreakForce(b2RevoluteJoint* joint,float timeStep);
+		bool CheckBreakForce(b2RevoluteJoint* joint,float timeStep);
 	};
 }
 
