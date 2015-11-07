@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 2.6)
 project(Project-Sacrifice)
 
 # Enable debug symbols by default
-if(CMAKE_BUILD_TYPE STREQUAL "")
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
+#if(CMAKE_BUILD_TYPE STREQUAL "")
+#    set(CMAKE_BUILD_TYPE Debug)
+#endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -26,7 +26,7 @@ set(SOURCE_FILES
         source/PhysicsEntity.cpp
         source/PhysicsEntity.h
         source/Background.cpp
-        source/Background.h source/Ragdoll.cpp source/Ragdoll.h)
+        source/Background.h source/Ragdoll.cpp source/Ragdoll.h source/Animal.cpp source/Animal.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

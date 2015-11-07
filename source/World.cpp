@@ -6,6 +6,7 @@
 #include "PhysicsEntity.h"
 #include "Background.h"
 #include "Ragdoll.h"
+#include "Animal.h"
 
 namespace PS
 {
@@ -20,7 +21,7 @@ namespace PS
 		return _instance;
 	}
 
-	World::World()
+	World::World() : _waitForSacrifice(false)
 	{
 		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
@@ -33,7 +34,7 @@ namespace PS
 	void World::Loop()
 	{
 		new Background();
-		new PhysicsEntity();
+//		new PhysicsEntity();
 		for(int i = 0; i < 20; ++i)
 		{
 			new Ragdoll();
@@ -60,7 +61,8 @@ namespace PS
 			{
 				_physicsWorld->Step(1.0f / 60.0f, 2, 1);
 
-				EntityManager::GetInstance()->Update(1/60.0f);
+				EntityManager::GetInstance()->Update(1.0f/60.0f);
+				Update(1.0f/60.0f);
 
 				time -= sf::seconds(1.0f / 60.0f);
 				counter += 1;
@@ -72,5 +74,23 @@ namespace PS
 
 			_window->display();
 		}
+	}
+
+	void World::Update(float timeStep)
+	{
+		_spawnTimer += timeStep;
+
+		if(_spawnTimer > 3.0f && !_waitForSacrifice)
+		{
+			_spawnTimer = 0.0f;
+			_waitForSacrifice = true;
+
+			new Animal();
+		}
+	}
+
+	void World::Sacrifice()
+	{
+		_waitForSacrifice = false;
 	}
 }

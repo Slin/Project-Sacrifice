@@ -10,13 +10,14 @@ namespace PS
 	{
 		World *world = World::GetInstance();
 		_mainBackground = new sf::Sprite();
-		_mainBackground->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/atsteken.png"));
+		_mainBackground->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/azteken_background.png"));
 		_mainBackground->setScale(world->GetScaleFactor(), world->GetScaleFactor());
 
 		sf::RenderWindow *window = world->GetWindow();
 		float offset = 1920.0f*world->GetScaleFactor() - window->getSize().x;
 		_mainBackground->setPosition(-offset*0.5f, 0.0f);
 
+		//Temple
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y + 50.0f)*World::WORLD_TO_BOX2D);
 		b2Body *groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
@@ -62,6 +63,18 @@ namespace PS
 		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+75.0f+70.0f+65.0f+80.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
 		groundBox.SetAsBox((133.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 80.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
+		groundBody->CreateFixture(&groundBox, 0.0f);
+
+
+		//Walls
+		groundBodyDef.position.Set(-200.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
+		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
+		groundBox.SetAsBox(10.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
+		groundBody->CreateFixture(&groundBox, 0.0f);
+
+		groundBodyDef.position.Set(window->getSize().x+200.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
+		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
+		groundBox.SetAsBox(10.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D, window->getSize().y*0.5f*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 	}
 

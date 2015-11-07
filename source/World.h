@@ -18,6 +18,9 @@ namespace PS
 	{
 	public:
 		void Loop();
+		void Update(float timeStep);
+
+		void Sacrifice();
 
 		b2World *GetPhysicsWorld()
 		{
@@ -51,6 +54,9 @@ namespace PS
 		sf::RenderWindow *_window;
 		float _scaleFactor;
 		float _aspectRatio;
+
+		float _spawnTimer;
+		bool _waitForSacrifice;
 	};
 }
 
