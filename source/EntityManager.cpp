@@ -4,33 +4,33 @@
 
 #include "EntityManager.h"
 
-void PS::EntityManager::draw(sf::RenderWindow *window)
+void PS::EntityManager::Draw(sf::RenderWindow *window)
 {
 
 
 	//draw entities
 	for (Entity *entity:entities){
-		//entity->draw(window);
+		entity->Draw(window);
 	}
 
 
 }
 
-void PS::EntityManager::removeEntity(PS::Entity *entity)
+void PS::EntityManager::RemoveEntity(PS::Entity *entity)
 {
 		if(entity){
 			entitiesToRemove.push_front(entity);
 		}
 }
 
-void PS::EntityManager::addEntity(PS::Entity *entity)
+void PS::EntityManager::AddEntity(PS::Entity *entity)
 {
 		if(entity){
 			entitiesToAdd.push_back(entity);
 		}
 }
 
-void PS::EntityManager::update()
+void PS::EntityManager::Update()
 {
 	//add queued entities
 	for (Entity *entity:entitiesToAdd){
@@ -39,7 +39,7 @@ void PS::EntityManager::update()
 
 	//update entities
 	for (Entity *entity:entities){
-		//entity->update();
+		entity->Update();
 	}
 
 	//remove queued entities

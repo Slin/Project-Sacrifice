@@ -22,13 +22,13 @@ namespace PS
 	public:
 		EntityManager();
 
-		void addEntity(Entity *entity);
+		void AddEntity(Entity *entity);
 
-		void removeEntity(Entity *entity);
+		void RemoveEntity(Entity *entity);
 
-		void update();
+		void Update();
 
-		void draw(sf::RenderWindow *windows);
+		void Draw(sf::RenderWindow *windows);
 
 	};
 }
