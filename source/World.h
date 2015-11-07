@@ -17,13 +17,13 @@ namespace PS
 	class Priest;
 	class Animal;
 	class ParticleEmitter;
+	class Background;
+
 	class World
 	{
 	public:
 		void Loop();
 		void Update(float timeStep);
-
-		void Sacrifice();
 
 		b2World *GetPhysicsWorld()
 		{
@@ -55,10 +55,13 @@ namespace PS
 		Priest *_priest;
 		Animal *_currentAnimal;
 		ParticleEmitter *_bloodParticles;
+		Background *_background;
 
 		float _spawnTimer;
 		bool _isKilling;
 		bool _keyWasPressed;
+
+		float _spawnTime;
 	};
 }
 

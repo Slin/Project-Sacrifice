@@ -9,6 +9,7 @@
 #include "Animal.h"
 #include "Priest.h"
 #include "ParticleEmitter.h"
+#include "Background.h"
 
 namespace PS
 {
@@ -23,9 +24,8 @@ namespace PS
 		return _instance;
 	}
 
-	World::World() : _currentAnimal(nullptr)
+	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f)
 	{
-
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
 
@@ -35,14 +35,9 @@ namespace PS
 
 	void World::Loop()
 	{
-		new Background();
+		_background = new Background();
 		_priest = new Priest();
 		_bloodParticles = new ParticleEmitter();
-/*		new PhysicsEntity();
-		for(int i = 0; i < 100; ++i)
-		{
-
-		}*/
 		new Ragdoll();
 
 		sf::Time deltaTime = sf::Time::Zero;
@@ -117,10 +112,23 @@ namespace PS
 
 		_spawnTimer += timeStep;
 
-		if(_spawnTimer > 3.0f && !_currentAnimal)
+		if(_spawnTimer > _spawnTime)
 		{
+			if(_currentAnimal)
+			{
+				_currentAnimal->Kill();
+				_currentAnimal = nullptr;
+
+				if(_background->RemoveLife())
+				{
+
+				}
+			}
+
 			_spawnTimer = 0.0f;
 			_currentAnimal = new Animal();
 		}
+
+		_spawnTime -= timeStep*0.01f;
 	}
 }

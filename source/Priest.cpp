@@ -16,7 +16,7 @@ namespace PS
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setTextureRect(sf::IntRect(0.0f, 0.0f, 256, 458));
 		_object->setOrigin(_object->getGlobalBounds().width*0.5f, _object->getGlobalBounds().height*0.5f);
-		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 400.0f*World::GetInstance()->GetScaleFactor());
+		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 430.0f*World::GetInstance()->GetScaleFactor());
 	}
 
 	Priest::~Priest()

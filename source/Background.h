@@ -19,9 +19,15 @@ namespace PS
 		void Draw(sf::RenderWindow *window);
 		void DrawLate(sf::RenderWindow *window);
 
+		bool RemoveLife();
+		int GetNumberOfLifes();
+
 	private:
 		sf::Sprite *_mainBackground;
 		sf::Sprite *_altar;
+
+		sf::Sprite *_life1;
+		sf::Sprite *_life2;
 	};
 }
 

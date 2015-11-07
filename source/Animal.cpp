@@ -20,7 +20,7 @@ namespace PS
 		_object->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Pig)?"assets/textures/pig_alive.png":"assets/textures/sheep_alive.png"));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
-		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 470.0f*World::GetInstance()->GetScaleFactor());
+		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 592.0f*World::GetInstance()->GetScaleFactor()-_object->getGlobalBounds().height*0.5f);
 
 		_state = State::Waiting;
 	}
@@ -72,8 +72,8 @@ namespace PS
 			fixtureDef.friction = 0.3f;
 			_rightHalfBody->CreateFixture(&fixtureDef);
 
-			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-3.0f, -1.0f), _leftHalfBody->GetWorldCenter(), true);
-			_rightHalfBody->ApplyLinearImpulse(b2Vec2(3.0f, -1.0f), _rightHalfBody->GetWorldCenter(), true);
+			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-2.0f, -3.0f), _leftHalfBody->GetWorldCenter(), true);
+			_rightHalfBody->ApplyLinearImpulse(b2Vec2(2.0f, -3.0f), _rightHalfBody->GetWorldCenter(), true);
 		}
 	}
 
