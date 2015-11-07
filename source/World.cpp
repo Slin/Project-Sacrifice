@@ -24,7 +24,7 @@ namespace PS
 		return _instance;
 	}
 
-	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f)
+	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f), _isKilling(false)
 	{
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
