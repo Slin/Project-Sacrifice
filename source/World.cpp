@@ -30,7 +30,7 @@ namespace PS
 	{
 		Entity box;
 		box.setPosition(sf::Vector2<float>(50.0f, 50.0f));
-		box.setSize(sf::Vector2<float>(50.0f, 50.0f));
+		//box.setSize(sf::Vector2<float>(50.0f, 50.0f));
 
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(0.0f, 500.0f);

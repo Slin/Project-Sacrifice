@@ -7,10 +7,11 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Box2D/Box2D.h>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace PS
 {
-	class Entity : public sf::RectangleShape
+	class Entity : public sf::Sprite
 	{
 	public:
 		Entity();
@@ -18,6 +19,7 @@ namespace PS
 		void Update();
 
 	private:
+		sf::Texture *texture;
 		b2BodyDef _bodyDef;
 		b2Body *_body;
 	};

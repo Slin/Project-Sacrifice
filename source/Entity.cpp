@@ -21,6 +21,11 @@ namespace PS
 		fixtureDef.friction = 0.3f;
 
 		_body->CreateFixture(&fixtureDef);
+
+		//texture=new sf::Texture();
+		//texture->loadFromFile("assets/test.png");
+		setTexture(*TexturePool::GetInstance()->GetTexture("assets/test.png"));
+		//setTexture(*texture);
 	}
 
 	void Entity::Update()

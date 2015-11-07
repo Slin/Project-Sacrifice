@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
+#include "TexturePool.h"
 
 namespace PS
 {
@@ -27,7 +28,6 @@ namespace PS
 	private:
 		World();
 		static World *_instance;
-
 		b2World *_physicsWorld;
 		sf::RenderWindow *_window;
 	};
