@@ -34,7 +34,7 @@ namespace PS
 		delete _object;
 	}
 
-	void PhysicsEntity::Update()
+	void PhysicsEntity::Update(float timeStep)
 	{
 		b2Vec2 position = _body->GetPosition();
 		float32 angle = _body->GetAngle();

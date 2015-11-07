@@ -26,7 +26,7 @@ namespace PS
 	public:
 		void AddEntity(Entity *entity);
 		void RemoveEntity(Entity *entity);
-		void Update();
+		void Update(float timeStep);
 		void Draw(sf::RenderWindow *windows);
 
 		static EntityManager *GetInstance();

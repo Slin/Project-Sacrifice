@@ -15,7 +15,7 @@ namespace PS
 		PhysicsEntity();
 		~PhysicsEntity();
 
-		void Update();
+		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 
 	private:

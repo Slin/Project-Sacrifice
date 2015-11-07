@@ -15,7 +15,7 @@ namespace PS
 		Background();
 		~Background();
 
-		void Update();
+		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 
 	private:

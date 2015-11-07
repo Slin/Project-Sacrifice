@@ -21,7 +21,7 @@ namespace PS
 			EntityManager::GetInstance()->RemoveEntity(this);
 		}
 
-		virtual void Update() = 0;
+		virtual void Update(float timeStep) = 0;
 		virtual void Draw(sf::RenderWindow *window) = 0;
 	};
 }

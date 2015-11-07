@@ -47,7 +47,7 @@ namespace PS
 		}
 	}
 
-	void EntityManager::Update()
+	void EntityManager::Update(float timeStep)
 	{
 		//add queued entities
 		for(Entity *entity:_entitiesToAdd)
@@ -59,7 +59,7 @@ namespace PS
 		//update entities
 		for(Entity *entity:_entities)
 		{
-			entity->Update();
+			entity->Update(timeStep);
 		}
 
 		//remove queued entities

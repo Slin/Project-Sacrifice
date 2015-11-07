@@ -34,12 +34,12 @@ namespace PS
 	{
 		new Background();
 		new PhysicsEntity();
-		for(int i = 0; i < 25; ++i)
+		for(int i = 0; i < 10; ++i)
 		{
 			new Ragdoll();
 		}
 
-
+		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
 
@@ -52,13 +52,14 @@ namespace PS
 					_window->close();
 			}
 
-			time += clock.getElapsedTime();
+			deltaTime = clock.getElapsedTime();
+			time += deltaTime;
 			clock.restart();
 			while(time.asSeconds() > 1.0f / 60.0f)
 			{
 				_physicsWorld->Step(1.0f / 60.0f, 6, 2);
 
-				EntityManager::GetInstance()->Update();
+				EntityManager::GetInstance()->Update(1/60.0f);
 
 				time -= sf::seconds(1.0f / 60.0f);
 			}

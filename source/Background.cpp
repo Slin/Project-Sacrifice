@@ -70,7 +70,7 @@ namespace PS
 		delete _mainBackground;
 	}
 
-	void Background::Update()
+	void Background::Update(float timeStep)
 	{
 
 	}
