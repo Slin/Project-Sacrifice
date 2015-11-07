@@ -5,6 +5,7 @@
 #include "World.h"
 #include "PhysicsEntity.h"
 #include "Background.h"
+#include "Ragdoll.h"
 
 namespace PS
 {
@@ -21,7 +22,7 @@ namespace PS
 
 	World::World()
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(1920, 1200), "Project Sacrifice");
+		_window = new sf::RenderWindow(sf::VideoMode(720, 576), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
 		_aspectRatio = _window->getSize().y/_window->getSize().x;
 
@@ -33,6 +34,7 @@ namespace PS
 	{
 		new Background();
 		new PhysicsEntity();
+		new Ragdoll();
 
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;

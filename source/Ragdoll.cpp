@@ -1,0 +1,212 @@
+//
+// Created by gclmini-06 on 07.11.2015.
+//
+
+#include "Ragdoll.h"
+
+namespace PS
+{
+	Ragdoll::Ragdoll(){
+
+		float density=1.0f;
+		float friction = 0.3f;
+
+		position.x=100;
+		position.y=100;
+
+		_shape_torso = new sf::RectangleShape();
+		_shape_torso->setSize(sf::Vector2f(50.0f, 150.0f));
+		_shape_torso->setOrigin(_shape_torso->getSize()/2.0f);
+		_shape_torso->setFillColor(sf::Color::Blue);
+
+		_shape_head = new sf::RectangleShape();
+		_shape_head->setSize(sf::Vector2f(25.0f, 25.0f));
+		_shape_head->setOrigin(_shape_head->getSize()/2.0f);
+		_shape_head->setFillColor(sf::Color::Red);
+
+		_shape_arm_left = new sf::RectangleShape();
+		_shape_arm_left->setSize(sf::Vector2f(15.0f, 150.0f));
+		_shape_arm_left->setOrigin(_shape_arm_left->getSize()/2.0f);
+		_shape_arm_left->setFillColor(sf::Color::Yellow);
+
+		_shape_arm_right = new sf::RectangleShape();
+		_shape_arm_right->setSize(sf::Vector2f(15.0f, 150.0f));
+		_shape_arm_right->setOrigin(_shape_arm_right->getSize()/2.0f);
+		_shape_arm_right->setFillColor(sf::Color::Cyan);
+
+		_shape_leg_left = new sf::RectangleShape();
+		_shape_leg_left->setSize(sf::Vector2f(15.0f, 150.0f));
+		_shape_leg_left->setOrigin(_shape_leg_left->getSize()/2.0f);
+		_shape_leg_left->setFillColor(sf::Color::Yellow);
+
+		_shape_leg_right = new sf::RectangleShape();
+		_shape_leg_right->setSize(sf::Vector2f(15.0f, 150.0f));
+		_shape_leg_right->setOrigin(_shape_leg_right->getSize()/2.0f);
+		_shape_leg_right->setFillColor(sf::Color::Cyan);
+
+
+//b2d torso
+		_bodyDef_torso.type = b2_dynamicBody;
+		_bodyDef_torso.position.Set(position.x, position.y);
+		_body_torso = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_torso);
+		b2PolygonShape dynamicBox;
+		dynamicBox.SetAsBox(_shape_torso->getSize().x/2.0f, _shape_torso->getSize().y/2.0f);
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_torso->CreateFixture(&fixtureDef);
+
+	//b2d head
+		_bodyDef_head.type = b2_dynamicBody;
+		_bodyDef_head.position.Set(position.x, position.y+_shape_head->getSize().y);
+		_body_head = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_head);
+		//b2PolygonShape dynamicBox2;
+		dynamicBox.SetAsBox(_shape_head->getSize().x/2.0f, _shape_head->getSize().y/2.0f);
+		//b2FixtureDef fixtureDefhead;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_head->CreateFixture(&fixtureDef);
+
+		//b2d arm
+		_bodyDef_arm_left.type = b2_dynamicBody;
+		_bodyDef_arm_left.position.Set(position.x-_shape_torso->getSize().y/2.0f, position.y);
+		_body_arm_left = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_left);
+		//b2PolygonShape dynamicBox2;
+		dynamicBox.SetAsBox(_shape_arm_left->getSize().x/2.0f, _shape_arm_left->getSize().y/2.0f);
+		//b2FixtureDef fixtureDefhead;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_arm_left->CreateFixture(&fixtureDef);
+
+		//b2d arm right
+		_bodyDef_arm_right.type = b2_dynamicBody;
+		_bodyDef_arm_right.position.Set(position.x+_shape_torso->getSize().y/2.0f, position.y);
+		_body_arm_right = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_right);
+		//b2PolygonShape dynamicBox2;
+		dynamicBox.SetAsBox(_shape_arm_right->getSize().x/2.0f, _shape_arm_right->getSize().y/2.0f);
+		//b2FixtureDef fixtureDefhead;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_arm_right->CreateFixture(&fixtureDef);
+
+		// b2d leg left
+		_bodyDef_leg_left.type = b2_dynamicBody;
+		_bodyDef_leg_left.position.Set(position.x+_shape_torso->getSize().y/2.0f, position.y+_shape_leg_left->getSize().y);
+		_body_leg_left = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_left);
+		//b2PolygonShape dynamicBox2;
+		dynamicBox.SetAsBox(_shape_leg_left->getSize().x/2.0f, _shape_leg_left->getSize().y/2.0f);
+		//b2FixtureDef fixtureDefhead;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_leg_left->CreateFixture(&fixtureDef);
+
+		//b2d leg right
+		_bodyDef_leg_right.type = b2_dynamicBody;
+		_bodyDef_leg_right.position.Set(position.x+_shape_torso->getSize().y/2.0f, position.y-_shape_leg_right->getSize().y);
+		_body_leg_right = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_right);
+		//b2PolygonShape dynamicBox2;
+		dynamicBox.SetAsBox(_shape_leg_right->getSize().x/2.0f, _shape_leg_right->getSize().y/2.0f);
+		//b2FixtureDef fixtureDefhead;
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		_body_leg_right->CreateFixture(&fixtureDef);
+
+
+
+
+		//joints
+		//////////////////////////////
+		b2RevoluteJointDef headJointDef = getDefGetJointDef(_body_torso,_body_head,0,-_shape_torso->getSize().y/2,0,_shape_head->getSize().y/2.0f);
+		_head_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&headJointDef);
+
+		b2RevoluteJointDef armLeftJointDef = getDefGetJointDef(_body_torso,_body_arm_left,-_shape_torso->getSize().x/2.0f,-_shape_torso->getSize().y/2,-_shape_arm_left->getSize().x/2.0f,-_shape_arm_left->getSize().y/2.0f);
+		_arm_left_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armLeftJointDef);
+
+		b2RevoluteJointDef armRightJointDef = getDefGetJointDef(_body_torso,_body_arm_right,_shape_torso->getSize().x/2.0f,-_shape_torso->getSize().y/2,_shape_arm_right->getSize().x/2.0f,-_shape_arm_right->getSize().y/2.0f);
+		_arm_right_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&armRightJointDef);
+
+		b2RevoluteJointDef legLeftJointDef = getDefGetJointDef(_body_torso,_body_leg_left,-_shape_torso->getSize().x/2.0f,_shape_torso->getSize().y/2,-_shape_leg_left->getSize().x/2.0f,_shape_leg_left->getSize().y/2.0f);
+		_leg_left_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legLeftJointDef);
+
+		b2RevoluteJointDef legRightJointDef = getDefGetJointDef(_body_torso,_body_leg_right,_shape_torso->getSize().x/2.0f,_shape_torso->getSize().y/2,_shape_leg_right->getSize().x/2.0f,_shape_leg_right->getSize().y/2.0f);
+		_leg_right_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legRightJointDef);
+
+
+	}
+
+	void Ragdoll::GetFixtureDef(b2FixtureDef& fixtureDef,b2PolygonShape& dynamicShape, sf::RectangleShape *shape, float32 density, float32 friction)
+	{
+		b2PolygonShape dynamicBox;
+		dynamicBox.SetAsBox(shape->getSize().x, shape->getSize().y);
+		//dynamicBox.SetAsBox(50.0f, 50.0f);
+
+
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		//return fixtureDef;
+	}
+
+	b2RevoluteJointDef Ragdoll::getDefGetJointDef(b2Body *bodyA, b2Body *bodyB, float32 anchorAX, float32 anchorAY, float32 anchorBX, float32 anchorBY) const
+	{
+		b2RevoluteJointDef revoluteJointDef;
+		revoluteJointDef.bodyA = bodyA;
+		revoluteJointDef.bodyB = bodyB;
+		revoluteJointDef.collideConnected = false;
+		revoluteJointDef.localAnchorA.Set(anchorAX,anchorAY);//the top right corner of the box
+		revoluteJointDef.localAnchorB.Set(anchorBX,anchorBY);//center of the circle
+
+		return revoluteJointDef;
+	}
+	Ragdoll::~Ragdoll()
+	{
+
+	}
+	void Ragdoll::Update()
+	{
+		b2Vec2 position = _body_torso->GetPosition();
+		float32 angle = _body_torso->GetAngle();
+		_shape_torso->setPosition(position.x, position.y);
+		_shape_torso->setRotation(angle*180/3.14f);
+
+		position = _body_head->GetPosition();
+		angle = _body_head->GetAngle();
+		_shape_head->setPosition(position.x, position.y);
+		_shape_head->setRotation(angle*180/3.14f);
+
+		position = _body_arm_left->GetPosition();
+		angle = _body_arm_left->GetAngle();
+		_shape_arm_left->setPosition(position.x, position.y);
+		_shape_arm_left->setRotation(angle*180/3.14f);
+
+		position = _body_arm_right->GetPosition();
+		angle = _body_arm_right->GetAngle();
+		_shape_arm_right->setPosition(position.x, position.y);
+		_shape_arm_right->setRotation(angle*180/3.14f);
+
+		position = _body_leg_left->GetPosition();
+		angle = _body_leg_left->GetAngle();
+		_shape_leg_left->setPosition(position.x, position.y);
+		_shape_leg_left->setRotation(angle*180/3.14f);
+
+		position = _body_leg_right->GetPosition();
+		angle = _body_leg_right->GetAngle();
+		_shape_leg_right->setPosition(position.x, position.y);
+		_shape_leg_right->setRotation(angle*180/3.14f);
+	}
+	void Ragdoll::Draw(sf::RenderWindow *window)
+	{
+		window->draw(*_shape_torso);
+		window->draw(*_shape_head);
+		window->draw(*_shape_arm_left);
+		window->draw(*_shape_arm_right);
+		window->draw(*_shape_leg_left);
+		window->draw(*_shape_leg_right);
+	}
+}
