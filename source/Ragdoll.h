@@ -55,17 +55,18 @@ namespace PS
 		b2Body *_body_leg_left2;
 		b2Body *_body_leg_right2;
 
-		sf::RectangleShape *_shape_torso;
-		sf::RectangleShape *_shape_head;
-		sf::RectangleShape *_shape_arm_left;
-		sf::RectangleShape *_shape_arm_right;
-		sf::RectangleShape *_shape_leg_left;
-		sf::RectangleShape *_shape_leg_right;
-		sf::RectangleShape *_shape_arm_left2;
-		sf::RectangleShape *_shape_arm_right2;
-		sf::RectangleShape *_shape_leg_left2;
-		sf::RectangleShape *_shape_leg_right2;
-		void GetFixtureDef(b2FixtureDef& fixtureDef,b2PolygonShape& dynamicShape, sf::RectangleShape *shape, float32 density, float32 friction);
+		sf::Sprite *_shape_torso;
+		sf::Sprite *_shape_head;
+		sf::Sprite *_shape_arm_left;
+		sf::Sprite *_shape_arm_right;
+		sf::Sprite *_shape_leg_left;
+		sf::Sprite *_shape_leg_right;
+		sf::Sprite *_shape_arm_left2;
+		sf::Sprite *_shape_arm_right2;
+		sf::Sprite *_shape_leg_left2;
+		sf::Sprite *_shape_leg_right2;
+
+		void GetFixtureDef(b2FixtureDef& fixtureDef,b2PolygonShape& dynamicShape, sf::Sprite *shape, float32 density, float32 friction);
 		b2FixtureDef _fixtureDef;
 		b2RevoluteJointDef getDefGetJointDef(b2Body *bodyA, b2Body *bodyB, float32 anchorAX, float32 anchorAY, float32 anchorBX, float32 anchorBY) const;
 
