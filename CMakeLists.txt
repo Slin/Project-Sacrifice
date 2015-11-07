@@ -6,12 +6,15 @@ project(Project-Sacrifice)
 if(CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE Debug)
 endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # (you can also set it on the command line: -D CMAKE_BUILD_TYPE=Release)
 
 # Define sources and executable
 set(EXECUTABLE_NAME "Project_Sacrifice")
 
-set(SOURCE_FILES source/main.cpp source/Entity.cpp source/Entity.h source/World.cpp source/World.h source/TexturePool.cpp source/TexturePool.h)
+set(SOURCE_FILES source/main.cpp source/Entity.cpp source/Entity.h source/World.cpp source/World.h source/TexturePool.cpp source/TexturePool.h source/EntityManager.cpp source/EntityManager.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
