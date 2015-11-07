@@ -25,11 +25,15 @@ namespace PS
 	private:
 		sf::Sprite *_mainBackground;
 		sf::Sprite *_altar;
+		sf::Sprite *_feuer1;
+		sf::Sprite *_feuer2;
 
 		sf::Sprite *_life1;
 		sf::Sprite *_life2;
 		sf::Sprite *_life3;
 		sf::Sprite *_life4;
+
+		float _animationTimer;
 	};
 }
 

@@ -84,6 +84,22 @@ namespace PS
 		_altar->setOrigin(_altar->getLocalBounds().width/2.0f, _altar->getLocalBounds().height/2.0f);
 		_altar->setPosition(window->getSize().x*0.5f + 3.0f*world->GetScaleFactor(), 623.0f*world->GetScaleFactor());
 
+
+		_feuer1 = new sf::Sprite();
+		_feuer1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/feuer.png"));
+		_feuer1->setTextureRect(sf::IntRect(0.0f, 0.0f, 349, 692));
+		_feuer1->setScale(_mainBackground->getScale());
+		_feuer1->setOrigin(_feuer1->getLocalBounds().width/2.0f, _feuer1->getLocalBounds().height/2.0f);
+		_feuer1->setPosition(window->getSize().x*0.5f + 640.0f*world->GetScaleFactor(), 670.0f*world->GetScaleFactor());
+
+		_feuer2 = new sf::Sprite();
+		_feuer2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/feuer.png"));
+		_feuer2->setTextureRect(sf::IntRect(0.0f, 0.0f, 349, 692));
+		_feuer2->setScale(_mainBackground->getScale());
+		_feuer2->setOrigin(_feuer2->getLocalBounds().width/2.0f, _feuer2->getLocalBounds().height/2.0f);
+		_feuer2->setPosition(window->getSize().x*0.5f - 640.0f*world->GetScaleFactor(), 670.0f*world->GetScaleFactor());
+
+
 		_life1 = new sf::Sprite();
 		_life1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orbohr.png"));
 		_life1->setScale(_mainBackground->getScale());
@@ -117,7 +133,11 @@ namespace PS
 
 	void Background::Update(float timeStep)
 	{
+		_animationTimer += timeStep;
+		int image = _animationTimer/0.05f;
 
+		_feuer1->setTextureRect(sf::IntRect((image%5)*349, 0.0f, 349, 692));
+		_feuer2->setTextureRect(sf::IntRect(((image+2)%5)*349, 0.0f, 349, 692));
 	}
 
 	void Background::Draw(sf::RenderWindow *window)
@@ -137,6 +157,8 @@ namespace PS
 	void Background::DrawLate(sf::RenderWindow *window)
 	{
 		window->draw(*_altar);
+		window->draw(*_feuer1);
+		window->draw(*_feuer2);
 	}
 
 	bool Background::RemoveLife()

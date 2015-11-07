@@ -12,6 +12,13 @@ namespace PS
 	class Animal : public Entity
 	{
 	public:
+		enum Type
+		{
+			Pig,
+			Sheep,
+			Baby
+		};
+
 		Animal();
 		~Animal();
 
@@ -19,6 +26,10 @@ namespace PS
 		void Draw(sf::RenderWindow *window);
 
 		void Kill();
+		Type GetType()
+		{
+			return _type;
+		}
 
 	private:
 		enum State
@@ -26,12 +37,6 @@ namespace PS
 			Alive,
 			Waiting,
 			Dead
-		};
-
-		enum Type
-		{
-			Pig,
-			Sheep
 		};
 
 		State _state;

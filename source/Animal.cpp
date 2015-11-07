@@ -14,10 +14,10 @@ namespace PS
 
 		_leftHalfBody = nullptr;
 
-		_type = static_cast<Type>(rand()%2);
+		_type = static_cast<Type>(rand()%3);
 
 		_object = new sf::Sprite();
-		_object->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Pig)?"assets/textures/pig_alive.png":"assets/textures/sheep_alive.png"));
+		_object->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Baby)?"assets/textures/baby_alive.png":(_type==Type::Pig)?"assets/textures/pig_alive.png":"assets/textures/sheep_alive.png"));
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 592.0f*World::GetInstance()->GetScaleFactor()-_object->getGlobalBounds().height*0.5f);
@@ -37,13 +37,13 @@ namespace PS
 			_state = State::Dead;
 
 			_leftHalf = new sf::Sprite();
-			_leftHalf->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Pig)?"assets/textures/pig_dead_01.png":"assets/textures/sheep_dead_01.png"));
+			_leftHalf->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Baby)?"assets/textures/baby_dead_02.png":(_type==Type::Pig)?"assets/textures/pig_dead_01.png":"assets/textures/sheep_dead_01.png"));
 			_leftHalf->setOrigin(_leftHalf->getLocalBounds().width*0.5f, _leftHalf->getLocalBounds().height*0.5f);
 			_leftHalf->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 			_leftHalf->setPosition(_object->getPosition().x-_leftHalf->getGlobalBounds().width*0.5f, _object->getPosition().y);
 
 			_rightHalf = new sf::Sprite();
-			_rightHalf->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Pig)?"assets/textures/pig_dead_02.png":"assets/textures/sheep_dead_02.png"));
+			_rightHalf->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Baby)?"assets/textures/baby_dead_01.png":(_type==Type::Pig)?"assets/textures/pig_dead_02.png":"assets/textures/sheep_dead_02.png"));
 			_rightHalf->setOrigin(_rightHalf->getLocalBounds().width*0.5f, _rightHalf->getLocalBounds().height*0.5f);
 			_rightHalf->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 			_rightHalf->setPosition(_object->getPosition().x+_rightHalf->getGlobalBounds().width*0.5f, _object->getPosition().y);
@@ -60,7 +60,7 @@ namespace PS
 			_leftHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
 			dynamicBox.SetAsBox(_leftHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _leftHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
-			fixtureDef.density = 1.5f;
+			fixtureDef.density = 1.0f;
 			fixtureDef.friction = 0.3f;
 			_leftHalfBody->CreateFixture(&fixtureDef);
 
@@ -68,12 +68,12 @@ namespace PS
 			_rightHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
 			dynamicBox.SetAsBox(_rightHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _rightHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
-			fixtureDef.density = 1.5f;
+			fixtureDef.density = 1.0f;
 			fixtureDef.friction = 0.3f;
 			_rightHalfBody->CreateFixture(&fixtureDef);
 
-			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-1.0f, -2.0f), _leftHalfBody->GetWorldCenter(), true);
-			_rightHalfBody->ApplyLinearImpulse(b2Vec2(1.0f, -2.0f), _rightHalfBody->GetWorldCenter(), true);
+			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-1.0f, -2.5f), _leftHalfBody->GetWorldCenter(), true);
+			_rightHalfBody->ApplyLinearImpulse((_type==Type::Baby)?b2Vec2(0.5f, -0.5f):b2Vec2(1.0f, -2.0f), _rightHalfBody->GetWorldCenter(), true);
 		}
 	}
 
