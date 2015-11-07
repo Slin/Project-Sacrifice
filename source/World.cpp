@@ -40,7 +40,10 @@ namespace PS
 		_priest = new Priest();
 		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
-
+		sf::Vector2f vec;
+		vec.x=600;
+		vec.y=0;
+		new Ragdoll(vec);
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;

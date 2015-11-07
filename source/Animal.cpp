@@ -3,7 +3,7 @@
 //
 
 #include "Animal.h"
-
+#include "Ragdoll.h"
 namespace PS
 {
 	Animal::Animal()
@@ -14,10 +14,24 @@ namespace PS
 
 		_leftHalfBody = nullptr;
 
-		_type = static_cast<Type>(rand()%3);
+		_type = static_cast<Type>(rand()%4);
 
 		_object = new sf::Sprite();
-		_object->setTexture(*TexturePool::GetInstance()->GetTexture((_type==Type::Baby)?"assets/textures/baby_alive.png":(_type==Type::Pig)?"assets/textures/pig_alive.png":"assets/textures/sheep_alive.png"));
+		switch(_type){
+			case Type::Baby:
+				_object->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/baby_alive.png"));
+				break;
+			case Type::Opfer:
+				_object->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Opfer_puppet_Komplett_liegend.png"));
+				break;
+			case Type::Pig:
+				_object->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/pig_alive.png"));
+				break;
+			case Type::Sheep:
+				_object->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/sheep_alive.png"));
+				break;
+		}
+
 		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 592.0f*World::GetInstance()->GetScaleFactor()-_object->getGlobalBounds().height*0.5f);
@@ -32,8 +46,9 @@ namespace PS
 
 	void Animal::Kill()
 	{
-		if(_state == State::Waiting)
+		if(_state == State::Waiting && _type != Type::Opfer)
 		{
+
 			_state = State::Dead;
 
 			_leftHalf = new sf::Sprite();
@@ -74,6 +89,13 @@ namespace PS
 
 			_leftHalfBody->ApplyLinearImpulse((_type==Type::Baby)?b2Vec2(-0.6f, -1.5f):b2Vec2(-0.9f, -2.0f), _leftHalfBody->GetWorldCenter(), true);
 			_rightHalfBody->ApplyLinearImpulse((_type==Type::Baby)?b2Vec2(0.2f, -0.3f):b2Vec2(0.75f, -1.5f), _rightHalfBody->GetWorldCenter(), true);
+		}
+
+		if(_state == State::Waiting && _type == Type::Opfer){
+			sf::Vector2f vec = _object->getPosition();
+			vec.y-=100;
+			new Ragdoll(vec);
+			EntityManager::GetInstance()->RemoveEntity(this);
 		}
 	}
 

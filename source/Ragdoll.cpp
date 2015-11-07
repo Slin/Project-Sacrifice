@@ -7,13 +7,13 @@
 
 namespace PS
 {
-	Ragdoll::Ragdoll(){
+	Ragdoll::Ragdoll(sf::Vector2f vec){
 
 		float density=1.0f;
 		float friction = 0.3f;
-
-		position.x =600;// rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
-		position.y = rand() % 100;
+		position=vec;
+		//position.x =600;// rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
+		//position.y = rand() % 100;
 
 		sf::Vector2f tempVec;
 
@@ -515,7 +515,7 @@ namespace PS
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
 			std::cout << "force: " << forceModuleSq << std::endl;
-			if(forceModuleSq > 8000)
+			if(forceModuleSq > 15000)
 			{
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);
 				return true;

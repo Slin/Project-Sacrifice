@@ -11,7 +11,7 @@ namespace PS
 	class Ragdoll : public Entity
 	{
 	public:
-		Ragdoll();
+		Ragdoll(sf::Vector2f vec);
 		~Ragdoll();
 
 		sf::Vector2f position;
@@ -48,6 +48,7 @@ namespace PS
 		bool armRJointDetached=false;
 		bool legLJointDetached=false;
 		bool legRJointDetached=false;
+
 		b2Body *_body_head;
 		b2Body *_body_torso;
 		b2Body *_body_arm_left;

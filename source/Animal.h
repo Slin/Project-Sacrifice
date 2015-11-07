@@ -16,7 +16,8 @@ namespace PS
 		{
 			Pig,
 			Sheep,
-			Baby
+			Baby,
+			Opfer
 		};
 
 		Animal();
