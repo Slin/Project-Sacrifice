@@ -10,6 +10,10 @@ namespace PS
 	{
 		_mainBackground = new sf::Sprite();
 		_mainBackground->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/atsteken.png"));
+		_mainBackground->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
+
+		float offset = 1920.0f*World::GetInstance()->GetScaleFactor() - World::GetInstance()->GetWindow()->getSize().x;
+		_mainBackground->setPosition(-offset*0.5f, 0.0f);
 	}
 
 	Background::~Background()

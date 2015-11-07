@@ -10,6 +10,7 @@
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
 #include "TexturePool.h"
+#include "EntityManager.h"
 
 namespace PS
 {
@@ -31,6 +32,11 @@ namespace PS
 		float GetAspectRatio()
 		{
 			return _scaleFactor;
+		}
+
+		sf::RenderWindow *GetWindow()
+		{
+			return _window;
 		}
 
 		static World *GetInstance();

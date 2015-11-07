@@ -12,6 +12,15 @@ namespace PS
 	class Entity
 	{
 	public:
+		Entity()
+		{
+			EntityManager::GetInstance()->AddEntity(this);
+		}
+		~Entity()
+		{
+			EntityManager::GetInstance()->RemoveEntity(this);
+		}
+
 		virtual void Update() = 0;
 		virtual void Draw(sf::RenderWindow *window) = 0;
 	};

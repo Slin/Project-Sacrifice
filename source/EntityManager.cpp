@@ -3,48 +3,70 @@
 //
 
 #include "EntityManager.h"
+#include "Entity.h"
 
-void PS::EntityManager::Draw(sf::RenderWindow *window)
+namespace PS
 {
+	EntityManager *EntityManager::_instance = NULL;
 
+	EntityManager* EntityManager::GetInstance()
+	{
+		if(!_instance)
+			_instance = new EntityManager();
 
-	//draw entities
-	for (Entity *entity:entities){
-		entity->Draw(window);
+		return _instance;
 	}
 
+	EntityManager::EntityManager()
+	{
 
-}
+	}
 
-void PS::EntityManager::RemoveEntity(PS::Entity *entity)
-{
-		if(entity){
-			entitiesToRemove.push_front(entity);
+	void EntityManager::Draw(sf::RenderWindow *window)
+	{
+		//draw entities
+		for(Entity *entity:_entities)
+		{
+			entity->Draw(window);
 		}
-}
+	}
 
-void PS::EntityManager::AddEntity(PS::Entity *entity)
-{
-		if(entity){
-			entitiesToAdd.push_back(entity);
+	void EntityManager::RemoveEntity(PS::Entity *entity)
+	{
+		if(entity)
+		{
+			_entitiesToRemove.push_front(entity);
 		}
-}
-
-void PS::EntityManager::Update()
-{
-	//add queued entities
-	for (Entity *entity:entitiesToAdd){
-		entities.push_back(entity);
 	}
 
-	//update entities
-	for (Entity *entity:entities){
-		entity->Update();
+	void EntityManager::AddEntity(PS::Entity *entity)
+	{
+		if(entity)
+		{
+			_entitiesToAdd.push_back(entity);
+		}
 	}
 
-	//remove queued entities
-	for (Entity *entity:entitiesToRemove){
-		entities.remove(entity);
-	}
+	void EntityManager::Update()
+	{
+		//add queued entities
+		for(Entity *entity:_entitiesToAdd)
+		{
+			_entities.push_back(entity);
+		}
+		_entitiesToAdd.clear();
 
+		//update entities
+		for(Entity *entity:_entities)
+		{
+			entity->Update();
+		}
+
+		//remove queued entities
+		for(Entity *entity:_entitiesToRemove)
+		{
+			_entities.remove(entity);
+		}
+		_entitiesToRemove.clear();
+	}
 }

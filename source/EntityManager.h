@@ -6,30 +6,30 @@
 #define PROJECT_SACRIFICE_ENTITIEMANAGER_H
 
 #include <SFML/Main.hpp>
-#include "Entity.h"
 #include <list>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 using namespace std;
 namespace PS
 {
+	class Entity;
 	class EntityManager
 	{
 	private:
-		list<Entity*> entities;
-		list<Entity*> entitiesToAdd;
-		list<Entity*> entitiesToRemove;
-	public:
 		EntityManager();
+		static EntityManager *_instance;
 
+		list<Entity*> _entities;
+		list<Entity*> _entitiesToAdd;
+		list<Entity*> _entitiesToRemove;
+
+	public:
 		void AddEntity(Entity *entity);
-
 		void RemoveEntity(Entity *entity);
-
 		void Update();
-
 		void Draw(sf::RenderWindow *windows);
 
+		static EntityManager *GetInstance();
 	};
 }
 

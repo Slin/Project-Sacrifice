@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "PhysicsEntity.h"
+#include "Background.h"
 
 namespace PS
 {
@@ -11,16 +12,15 @@ namespace PS
 
 	World *World::GetInstance()
 	{
-		if (!_instance)
+		if(!_instance)
 			_instance = new World();
 
 		return _instance;
 	}
 
-
 	World::World()
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(960, 540), "Project Sacrifice");
+		_window = new sf::RenderWindow(sf::VideoMode(1920, 1200), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
 		_aspectRatio = _window->getSize().y/_window->getSize().x;
 
@@ -30,7 +30,8 @@ namespace PS
 
 	void World::Loop()
 	{
-		PhysicsEntity box;
+		new Background();
+		new PhysicsEntity();
 
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(0.0f, 500.0f);
@@ -57,14 +58,14 @@ namespace PS
 			{
 				_physicsWorld->Step(1.0f / 60.0f, 6, 2);
 
-				box.Update();
+				EntityManager::GetInstance()->Update();
 
 				time -= sf::seconds(1.0f / 60.0f);
 			}
 
 			_window->clear(sf::Color::Black);
 
-			box.Draw(_window);
+			EntityManager::GetInstance()->Draw(_window);
 
 			_window->display();
 		}
