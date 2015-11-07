@@ -60,7 +60,7 @@ namespace PS
 			_leftHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
 			dynamicBox.SetAsBox(_leftHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _leftHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
-			fixtureDef.density = 1.0f;
+			fixtureDef.density = 1.5f;
 			fixtureDef.friction = 0.3f;
 			_leftHalfBody->CreateFixture(&fixtureDef);
 
@@ -68,12 +68,12 @@ namespace PS
 			_rightHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
 			dynamicBox.SetAsBox(_rightHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _rightHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
-			fixtureDef.density = 1.0f;
+			fixtureDef.density = 1.5f;
 			fixtureDef.friction = 0.3f;
 			_rightHalfBody->CreateFixture(&fixtureDef);
 
-			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-2.0f, -3.0f), _leftHalfBody->GetWorldCenter(), true);
-			_rightHalfBody->ApplyLinearImpulse(b2Vec2(2.0f, -3.0f), _rightHalfBody->GetWorldCenter(), true);
+			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-1.0f, -2.0f), _leftHalfBody->GetWorldCenter(), true);
+			_rightHalfBody->ApplyLinearImpulse(b2Vec2(1.0f, -2.0f), _rightHalfBody->GetWorldCenter(), true);
 		}
 	}
 

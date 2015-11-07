@@ -28,6 +28,8 @@ namespace PS
 
 		sf::Sprite *_life1;
 		sf::Sprite *_life2;
+		sf::Sprite *_life3;
+		sf::Sprite *_life4;
 	};
 }
 

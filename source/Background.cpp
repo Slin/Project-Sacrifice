@@ -85,16 +85,28 @@ namespace PS
 		_altar->setPosition(window->getSize().x*0.5f + 3.0f*world->GetScaleFactor(), 623.0f*world->GetScaleFactor());
 
 		_life1 = new sf::Sprite();
-		_life1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orb_eyes.png"));
+		_life1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orbohr.png"));
 		_life1->setScale(_mainBackground->getScale());
 		_life1->setOrigin(_life1->getLocalBounds().width/2.0f, _life1->getLocalBounds().height/2.0f);
-		_life1->setPosition(window->getSize().x*0.5f-63.0f*world->GetScaleFactor(), 150.0f*world->GetScaleFactor());
+		_life1->setPosition(window->getSize().x*0.5f-148.0f*world->GetScaleFactor(), 202.0f*world->GetScaleFactor());
 
 		_life2 = new sf::Sprite();
-		_life2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orb_eyes.png"));
+		_life2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orbohr.png"));
 		_life2->setScale(_mainBackground->getScale());
 		_life2->setOrigin(_life2->getLocalBounds().width/2.0f, _life2->getLocalBounds().height/2.0f);
-		_life2->setPosition(window->getSize().x*0.5f+63.0f*world->GetScaleFactor(), 150.0f*world->GetScaleFactor());
+		_life2->setPosition(window->getSize().x*0.5f+148.0f*world->GetScaleFactor(), 202.0f*world->GetScaleFactor());
+
+		_life3 = new sf::Sprite();
+		_life3->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orb_eyes.png"));
+		_life3->setScale(_mainBackground->getScale());
+		_life3->setOrigin(_life3->getLocalBounds().width/2.0f, _life3->getLocalBounds().height/2.0f);
+		_life3->setPosition(window->getSize().x*0.5f-63.0f*world->GetScaleFactor(), 138.0f*world->GetScaleFactor());
+
+		_life4 = new sf::Sprite();
+		_life4->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/orb_eyes.png"));
+		_life4->setScale(_mainBackground->getScale());
+		_life4->setOrigin(_life4->getLocalBounds().width/2.0f, _life4->getLocalBounds().height/2.0f);
+		_life4->setPosition(window->getSize().x*0.5f+63.0f*world->GetScaleFactor(), 138.0f*world->GetScaleFactor());
 
 	}
 
@@ -116,6 +128,10 @@ namespace PS
 			window->draw(*_life1);
 		if(_life2)
 			window->draw(*_life2);
+		if(_life3)
+			window->draw(*_life3);
+		if(_life4)
+			window->draw(*_life4);
 	}
 
 	void Background::DrawLate(sf::RenderWindow *window)
@@ -137,6 +153,18 @@ namespace PS
 			_life2 = nullptr;
 			return false;
 		}
+		if(_life3)
+		{
+			delete _life3;
+			_life3 = nullptr;
+			return false;
+		}
+		if(_life4)
+		{
+			delete _life4;
+			_life4 = nullptr;
+			return false;
+		}
 
 		return true;
 	}
@@ -144,6 +172,6 @@ namespace PS
 	int Background::GetNumberOfLifes()
 	{
 
-		return (_life1 != nullptr) + (_life2 != nullptr);
+		return (_life1 != nullptr) + (_life2 != nullptr) + (_life3 != nullptr) + (_life4 != nullptr);
 	}
 }
