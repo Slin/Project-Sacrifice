@@ -43,7 +43,9 @@ namespace PS
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
-		SoundPool::GetInstance();
+
+		_music.openFromFile("assets/sounds/Rite_of_Passage.ogg");
+		_music.play();
 
 		while(_window->isOpen())
 		{

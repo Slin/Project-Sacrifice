@@ -29,6 +29,7 @@ namespace PS
 		sf::Texture *texture;
 		texture = new sf::Texture();//
 		texture->loadFromFile(textureName);
+		texture->setSmooth(true);
 		_textureMap.insert(std::pair<std::string, sf::Texture *>(textureName, texture));
 	}
 

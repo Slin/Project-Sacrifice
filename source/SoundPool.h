@@ -17,11 +17,12 @@ namespace PS
 		SoundPool();
 		~SoundPool();
 
+	private:
 		void LoadSound(std::string sound);
+	public:
 		sf::SoundBuffer *GetSound(std::string sound);
 
 		static SoundPool *_instance;
-
 		static SoundPool *GetInstance();
 
 		sf::SoundBuffer *PlaySplat();

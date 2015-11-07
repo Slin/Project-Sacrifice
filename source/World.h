@@ -67,6 +67,7 @@ namespace PS
 
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
+		sf::Music _music;
 	};
 }
 
