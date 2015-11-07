@@ -44,25 +44,25 @@ namespace PS
 		groundBox.SetAsBox((594.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 65.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 
-		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+65.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
+		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+75.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
-		groundBox.SetAsBox((503.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 65.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
+		groundBox.SetAsBox((490.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 75.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 
-/*		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-15.0f-34.0f-39.0f-40.0f-43.0f-25.0f)*World::WORLD_TO_BOX2D);
+		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+75.0f+70.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
-		groundBox.SetAsBox((437.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 25.0f*World::WORLD_TO_BOX2D);
+		groundBox.SetAsBox((437.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 70.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 
-		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-15.0f-34.0f-39.0f-40.0f-43.0f-25.0f-31.0f)*World::WORLD_TO_BOX2D);
+		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+75.0f+70.0f+65.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
-		groundBox.SetAsBox((373.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 31.0f*World::WORLD_TO_BOX2D);
+		groundBox.SetAsBox((373.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 65.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
 		groundBody->CreateFixture(&groundBox, 0.0f);
 
-		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-15.0f-34.0f-39.0f-40.0f-43.0f-25.0f-31.0f-52.0f)*World::WORLD_TO_BOX2D);
+		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y-(15.0f+34.0f+65.0f+65.0f+75.0f+70.0f+65.0f+80.0f)*world->GetScaleFactor())*World::WORLD_TO_BOX2D);
 		groundBody = world->GetPhysicsWorld()->CreateBody(&groundBodyDef);
-		groundBox.SetAsBox((133.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 52.0f*World::WORLD_TO_BOX2D);
-		groundBody->CreateFixture(&groundBox, 0.0f);*/
+		groundBox.SetAsBox((133.0f*world->GetScaleFactor())*World::WORLD_TO_BOX2D, 80.0f*world->GetScaleFactor()*World::WORLD_TO_BOX2D);
+		groundBody->CreateFixture(&groundBox, 0.0f);
 	}
 
 	Background::~Background()

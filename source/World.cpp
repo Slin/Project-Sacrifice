@@ -22,7 +22,7 @@ namespace PS
 
 	World::World()
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(720, 576), "Project Sacrifice");
+		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
 		_aspectRatio = _window->getSize().y/_window->getSize().x;
 
@@ -34,7 +34,7 @@ namespace PS
 	{
 		new Background();
 		new PhysicsEntity();
-		for(int i = 0; i < 15; ++i)
+		for(int i = 0; i < 20; ++i)
 		{
 			new Ragdoll();
 		}
@@ -55,13 +55,15 @@ namespace PS
 			deltaTime = clock.getElapsedTime();
 			time += deltaTime;
 			clock.restart();
-			while(time.asSeconds() > 1.0f / 60.0f)
+			int counter = 0;
+			while(time.asSeconds() > 1.0f / 60.0f && counter < 4)
 			{
-				_physicsWorld->Step(1.0f / 60.0f, 6, 2);
+				_physicsWorld->Step(1.0f / 60.0f, 2, 1);
 
 				EntityManager::GetInstance()->Update(1/60.0f);
 
 				time -= sf::seconds(1.0f / 60.0f);
+				counter += 1;
 			}
 
 			_window->clear(sf::Color::Black);

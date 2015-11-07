@@ -12,9 +12,8 @@ namespace PS
 		float density=1.0f;
 		float friction = 0.7f;
 
-
-		position.x=rand() % 600 + 200;
-		position.y=rand() % 200 + 1;
+		position.x = rand() % World::GetInstance()->GetWindow()->getSize().x;
+		position.y = rand() % 100;
 
 		_shape_torso = new sf::RectangleShape();
 		_shape_torso->setSize(sf::Vector2f(10.0f, 35.0f));
@@ -347,7 +346,7 @@ namespace PS
 	{
 		if(joint!=NULL)
 		{
-			std::cout << "time: " << timeStep << std::endl;
+//			std::cout << "time: " << timeStep << std::endl;
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
 
