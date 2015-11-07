@@ -10,6 +10,7 @@
 #include "Priest.h"
 #include "ParticleEmitter.h"
 #include "Background.h"
+#include "Keys.h"
 
 namespace PS
 {
@@ -37,8 +38,8 @@ namespace PS
 	{
 		_background = new Background();
 		_priest = new Priest();
+		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
-		new Ragdoll();
 
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;

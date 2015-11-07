@@ -26,7 +26,7 @@ set(SOURCE_FILES
         source/PhysicsEntity.cpp
         source/PhysicsEntity.h
         source/Background.cpp
-        source/Background.h source/Ragdoll.cpp source/Ragdoll.h source/Animal.cpp source/Animal.h source/Priest.cpp source/Priest.h source/ParticleEmitter.cpp source/ParticleEmitter.h source/BloodParticle.cpp source/BloodParticle.h source/SoundPool.cpp source/SoundPool.h)
+        source/Background.h source/Ragdoll.cpp source/Ragdoll.h source/Animal.cpp source/Animal.h source/Priest.cpp source/Priest.h source/ParticleEmitter.cpp source/ParticleEmitter.h source/BloodParticle.cpp source/BloodParticle.h source/SoundPool.cpp source/SoundPool.h source/Keys.cpp source/Keys.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

@@ -20,6 +20,7 @@ namespace PS
 	class Animal;
 	class ParticleEmitter;
 	class Background;
+	class Keys;
 
 	class World
 	{
@@ -58,6 +59,7 @@ namespace PS
 		Animal *_currentAnimal;
 		ParticleEmitter *_bloodParticles;
 		Background *_background;
+		Keys *_keys;
 
 		float _spawnTimer;
 		bool _isKilling;
