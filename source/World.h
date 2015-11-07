@@ -38,6 +38,7 @@ namespace PS
 	private:
 		World();
 		static World *_instance;
+
 		b2World *_physicsWorld;
 		sf::RenderWindow *_window;
 		float _scaleFactor;

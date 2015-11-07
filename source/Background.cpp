@@ -9,6 +9,7 @@ namespace PS
 	Background::Background()
 	{
 		_mainBackground = new sf::Sprite();
+		_mainBackground->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/atsteken.png"));
 	}
 
 	Background::~Background()
