@@ -82,7 +82,7 @@ namespace PS
 
 	void World::Update(float timeStep)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			if(!_keyWasPressed)
 			{
