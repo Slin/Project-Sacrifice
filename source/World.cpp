@@ -7,6 +7,8 @@
 #include "Background.h"
 #include "Ragdoll.h"
 #include "Animal.h"
+#include "Priest.h"
+#include "ParticleEmitter.h"
 
 namespace PS
 {
@@ -21,11 +23,10 @@ namespace PS
 		return _instance;
 	}
 
-	World::World() : _waitForSacrifice(false)
+	World::World() : _currentAnimal(nullptr)
 	{
 		_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
-		_aspectRatio = _window->getSize().y/_window->getSize().x;
 
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
@@ -34,11 +35,13 @@ namespace PS
 	void World::Loop()
 	{
 		new Background();
-//		new PhysicsEntity();
-		for(int i = 0; i < 20; ++i)
+		new ParticleEmitter();
+		_priest = new Priest();
+/*		new PhysicsEntity();
+		for(int i = 0; i < 100; ++i)
 		{
 			new Ragdoll();
-		}
+		}*/
 
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
@@ -78,19 +81,26 @@ namespace PS
 
 	void World::Update(float timeStep)
 	{
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			if(_priest->GetAnimationTimer() <= 0.0001f)
+			{
+				_priest->Animate();
+			}
+		}
+
+		if(_priest->GetAnimationTimer() > 0.09 && _currentAnimal)
+		{
+			_currentAnimal->Kill();
+			_currentAnimal = nullptr;
+		}
+
 		_spawnTimer += timeStep;
 
-		if(_spawnTimer > 3.0f && !_waitForSacrifice)
+		if(_spawnTimer > 3.0f && !_currentAnimal)
 		{
 			_spawnTimer = 0.0f;
-			_waitForSacrifice = true;
-
-			new Animal();
+			_currentAnimal = new Animal();
 		}
-	}
-
-	void World::Sacrifice()
-	{
-		_waitForSacrifice = false;
 	}
 }

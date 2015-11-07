@@ -18,6 +18,8 @@ namespace PS
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 
+		void Kill();
+
 	private:
 		enum State
 		{

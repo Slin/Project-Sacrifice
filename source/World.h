@@ -14,6 +14,8 @@
 
 namespace PS
 {
+	class Priest;
+	class Animal;
 	class World
 	{
 	public:
@@ -28,11 +30,6 @@ namespace PS
 		}
 
 		float GetScaleFactor()
-		{
-			return _scaleFactor;
-		}
-
-		float GetAspectRatio()
 		{
 			return _scaleFactor;
 		}
@@ -53,10 +50,11 @@ namespace PS
 		b2World *_physicsWorld;
 		sf::RenderWindow *_window;
 		float _scaleFactor;
-		float _aspectRatio;
+
+		Priest *_priest;
+		Animal *_currentAnimal;
 
 		float _spawnTimer;
-		bool _waitForSacrifice;
 	};
 }
 

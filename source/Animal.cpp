@@ -30,11 +30,10 @@ namespace PS
 
 	}
 
-	void Animal::Update(float timeStep)
+	void Animal::Kill()
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _state == State::Waiting)
+		if(_state == State::Waiting)
 		{
-			World::GetInstance()->Sacrifice();
 			_state = State::Dead;
 
 			_leftHalf = new sf::Sprite();
@@ -76,7 +75,10 @@ namespace PS
 			_leftHalfBody->ApplyLinearImpulse(b2Vec2(-3.0f, -1.0f), _leftHalfBody->GetWorldCenter(), true);
 			_rightHalfBody->ApplyLinearImpulse(b2Vec2(3.0f, -1.0f), _rightHalfBody->GetWorldCenter(), true);
 		}
+	}
 
+	void Animal::Update(float timeStep)
+	{
 		if(_leftHalfBody && _leftHalf)
 		{
 			_leftHalf->setPosition(_leftHalfBody->GetPosition().x/World::WORLD_TO_BOX2D, _leftHalfBody->GetPosition().y/World::WORLD_TO_BOX2D);
