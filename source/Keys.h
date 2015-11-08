@@ -6,6 +6,7 @@
 #define PROJECT_SACRIFICE_KEYS_H
 
 #include "Entity.h"
+#include "Animal.h"
 
 namespace PS
 {
@@ -18,6 +19,8 @@ namespace PS
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 		void DrawLate(sf::RenderWindow *window);
+
+		void SetType(Animal::Type type);
 
 	private:
 		sf::Sprite *_object;

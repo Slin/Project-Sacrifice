@@ -6,7 +6,7 @@
 #include "Ragdoll.h"
 namespace PS
 {
-	Animal::Animal()
+	Animal::Animal(Type type)
 	{
 		_leftHalf = nullptr;
 		_rightHalf = nullptr;
@@ -14,7 +14,7 @@ namespace PS
 
 		_leftHalfBody = nullptr;
 
-		_type = static_cast<Type>(rand()%4);
+		_type = type;
 
 		_object = new sf::Sprite();
 		switch(_type){

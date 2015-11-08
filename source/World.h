@@ -51,6 +51,9 @@ namespace PS
 		World();
 		static World *_instance;
 
+		bool AnyKeyPressed();
+		bool IsCorrectKeyPressed();
+
 		b2World *_physicsWorld;
 		sf::RenderWindow *_window;
 		float _scaleFactor;
@@ -64,6 +67,7 @@ namespace PS
 		float _spawnTimer;
 		bool _isKilling;
 		bool _keyWasPressed;
+		bool _isGameOver;
 
 		float _spawnTime;
 

@@ -20,7 +20,7 @@ namespace PS
 			Opfer
 		};
 
-		Animal();
+		Animal(Type type);
 		~Animal();
 
 		void Update(float timeStep);

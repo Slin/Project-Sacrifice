@@ -21,6 +21,26 @@ namespace PS
 
 	}
 
+	void Keys::SetType(Animal::Type type)
+	{
+/*		if(type == Animal::Type::Mensch)
+		{
+			_object->setTextureRect(sf::IntRect(0.0f, 0.0f, 208, 208));
+		}*/
+		if(type == Animal::Type::Pig)
+		{
+			_object->setTextureRect(sf::IntRect(208.0f, 0.0f, 208, 208));
+		}
+		if(type == Animal::Type::Sheep)
+		{
+			_object->setTextureRect(sf::IntRect(2.0f*208.0f, 0.0f, 208, 208));
+		}
+		if(type == Animal::Type::Baby)
+		{
+			_object->setTextureRect(sf::IntRect(3.0f*208.0f, 0.0f, 208, 208));
+		}
+	}
+
 	void Keys::Update(float timeStep)
 	{
 

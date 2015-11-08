@@ -25,7 +25,7 @@ namespace PS
 		return _instance;
 	}
 
-	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f), _isKilling(false)
+	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f), _isKilling(false), _isGameOver(false)
 	{
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
@@ -83,9 +83,41 @@ namespace PS
 		}
 	}
 
+	bool World::AnyKeyPressed()
+	{
+		return (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
+	}
+
+	bool World::IsCorrectKeyPressed()
+	{
+		if(_currentAnimal)
+		{
+			switch(_currentAnimal->GetType())
+			{
+				case Animal::Type::Pig:
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+						return true;
+					break;
+				case Animal::Type::Sheep:
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+						return true;
+					break;
+				case Animal::Type::Baby:
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+						return true;
+					break;
+			}
+		}
+
+		return false;
+	}
+
 	void World::Update(float timeStep)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if(_isGameOver)
+			return;
+
+		if(AnyKeyPressed())
 		{
 			if(!_keyWasPressed)
 			{
@@ -106,6 +138,13 @@ namespace PS
 							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
 							_stabSound.play();
 
+							if(!IsCorrectKeyPressed())
+							{
+								if(_background->RemoveLife())
+								{
+									_isGameOver = true;
+								}
+							}
 						} else {
 							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
 							_stabSound.play();
@@ -129,7 +168,7 @@ namespace PS
 
 		_spawnTimer += timeStep;
 
-		if(_spawnTimer > _spawnTime)
+		if(_spawnTimer > _spawnTime || !_currentAnimal)
 		{
 			if(_currentAnimal)
 			{
@@ -138,12 +177,14 @@ namespace PS
 
 				if(_background->RemoveLife())
 				{
-
+					_isGameOver = true;
 				}
 			}
 
 			_spawnTimer = 0.0f;
-			_currentAnimal = new Animal();
+			Animal::Type type = static_cast<Animal::Type>(rand()%3);
+			_keys->SetType(type);
+			_currentAnimal = new Animal(type);
 		}
 
 		_spawnTime -= timeStep*0.01f;
