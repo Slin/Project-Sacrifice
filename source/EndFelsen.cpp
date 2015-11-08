@@ -18,7 +18,9 @@ namespace PS
 	EndFelsen::~EndFelsen()
 	{
 		delete _felsen;
-		delete _BAM;
+
+		if(_BAM)
+			delete _BAM;
 	}
 
 	void EndFelsen::Update(float timeStep)
@@ -31,10 +33,10 @@ namespace PS
 			if(!_BAM)
 			{
 				_BAM = new sf::Sprite();
-				_BAM->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Fels.png"));
+				_BAM->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Risse_Blut.png"));
 				_BAM->setOrigin(_BAM->getLocalBounds().width*0.5f, _BAM->getLocalBounds().height*0.5f);
 				_BAM->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
-				_BAM->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, -_BAM->getGlobalBounds().height*0.5f);
+				_BAM->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, World::GetInstance()->GetWindow()->getSize().y*0.5f);
 			}
 		}
 		else
@@ -50,5 +52,8 @@ namespace PS
 	void EndFelsen::DrawLate(sf::RenderWindow *window)
 	{
 		window->draw(*_felsen);
+
+		if(_BAM)
+			window->draw(*_BAM);
 	}
 }
