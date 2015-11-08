@@ -18,6 +18,8 @@ namespace PS
 		float offset = 1920.0f*world->GetScaleFactor() - window->getSize().x;
 		_mainBackground->setPosition(-offset*0.5f, 0.0f);
 
+		_lifelost.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/lifelost.ogg"));
+
 		//Temple
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(window->getSize().x*0.5f*World::WORLD_TO_BOX2D, (window->getSize().y + 50.0f)*World::WORLD_TO_BOX2D);
@@ -242,6 +244,7 @@ namespace PS
 
 	bool Background::RemoveLife()
 	{
+		_lifelost.play();
 		if(_life1)
 		{
 			delete _life1;

@@ -79,6 +79,7 @@ namespace PS
 
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
+		sf::Sound _lostSound;
 		sf::Music _music;
 
 		sf::Font _menuFont;

@@ -104,6 +104,8 @@ namespace PS
 		_titleSprite.setOrigin(_titleSprite.getLocalBounds().width/2.0f, _titleSprite.getLocalBounds().height/2.0f);
 		_titleSprite.setScale(_scaleFactor, _scaleFactor);
 		_titleSprite.setPosition(_window->getSize().x*0.5f, _window->getSize().y*0.5f);
+
+		_lostSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/end.ogg"));
 	}
 
 	void World::Reset()
@@ -331,6 +333,8 @@ namespace PS
 								
 								if(_background->RemoveLife())
 								{
+									_music.stop();
+									_lostSound.play();
 									_isGameOver = true;
 								}
 
@@ -398,7 +402,10 @@ namespace PS
 
 					if(_background->RemoveLife())
 					{
+						_music.stop();
+						_lostSound.play();
 						_isGameOver = true;
+
 					}
 				}
 
@@ -428,6 +435,7 @@ namespace PS
 
 		if(_isGameOver)
 		{
+
 			new EndFelsen();
 		}
 	}

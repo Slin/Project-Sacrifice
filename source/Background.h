@@ -43,6 +43,7 @@ namespace PS
 		sf::Sprite *_abdunkel;
 
 		float _animationTimer;
+		sf::Sound _lifelost;
 	};
 }
 
