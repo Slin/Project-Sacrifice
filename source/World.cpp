@@ -12,6 +12,7 @@
 #include "Background.h"
 #include "Keys.h"
 #include "Slave.h"
+#include "EndFelsen.h"
 #include <iostream>
 namespace PS
 {
@@ -94,6 +95,7 @@ namespace PS
 
 		_background = new Background();
 		_priest = new Priest();
+		new Slave();
 		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
 
@@ -113,7 +115,6 @@ namespace PS
 		//_music.setLoop(true);
 
 		Reset();
-		new Slave();
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
@@ -268,7 +269,6 @@ namespace PS
 								} else {
 									AddScore(-100);
 								}
-
 							}
 							else
 							{
@@ -354,7 +354,11 @@ namespace PS
 				_music.play();
 
 			}
+		}
 
+		if(_isGameOver)
+		{
+			new EndFelsen();
 		}
 	}
 

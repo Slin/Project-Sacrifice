@@ -42,7 +42,9 @@ set(SOURCE_FILES
         source/Keys.cpp
         source/Keys.h
         source/Slave.cpp
-        source/Slave.h)
+        source/Slave.h
+        source/EndFelsen.cpp
+        source/EndFelsen.h)
 add_executable(Project_Sacrifice ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

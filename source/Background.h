@@ -28,6 +28,8 @@ namespace PS
 		sf::Sprite *_altar;
 		sf::Sprite *_feuer1;
 		sf::Sprite *_feuer2;
+		sf::Sprite *_feuer3;
+		sf::Sprite *_feuer4;
 
 		sf::Sprite *_life1;
 		sf::Sprite *_life2;

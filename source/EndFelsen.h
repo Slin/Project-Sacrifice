@@ -17,11 +17,13 @@ namespace PS
 
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
+		void DrawLate(sf::RenderWindow *window);
 
 	private:
 		float _fallSpeed;
 
 		sf::Sprite *_felsen;
+		sf::Sprite *_BAM;
 	};
 }
 

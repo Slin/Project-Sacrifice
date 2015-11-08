@@ -87,18 +87,32 @@ namespace PS
 
 
 		_feuer1 = new sf::Sprite();
-		_feuer1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/feuer.png"));
-		_feuer1->setTextureRect(sf::IntRect(0.0f, 0.0f, 349, 692));
+		_feuer1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/firebig.png"));
+		_feuer1->setTextureRect(sf::IntRect(0.0f, 0.0f, 372, 905));
 		_feuer1->setScale(_mainBackground->getScale());
 		_feuer1->setOrigin(_feuer1->getLocalBounds().width/2.0f, _feuer1->getLocalBounds().height/2.0f);
-		_feuer1->setPosition(window->getSize().x*0.5f + 640.0f*world->GetScaleFactor(), 670.0f*world->GetScaleFactor());
+		_feuer1->setPosition(window->getSize().x*0.5f + 640.0f*world->GetScaleFactor(), 650.0f*world->GetScaleFactor());
 
 		_feuer2 = new sf::Sprite();
-		_feuer2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/feuer.png"));
-		_feuer2->setTextureRect(sf::IntRect(0.0f, 0.0f, 349, 692));
+		_feuer2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/firebig.png"));
+		_feuer2->setTextureRect(sf::IntRect(0.0f, 0.0f, 372, 905));
 		_feuer2->setScale(_mainBackground->getScale());
 		_feuer2->setOrigin(_feuer2->getLocalBounds().width/2.0f, _feuer2->getLocalBounds().height/2.0f);
-		_feuer2->setPosition(window->getSize().x*0.5f - 640.0f*world->GetScaleFactor(), 670.0f*world->GetScaleFactor());
+		_feuer2->setPosition(window->getSize().x*0.5f - 640.0f*world->GetScaleFactor(), 650.0f*world->GetScaleFactor());
+
+		_feuer3 = new sf::Sprite();
+		_feuer3->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/firesmall.png"));
+		_feuer3->setTextureRect(sf::IntRect(0.0f, 0.0f, 91, 185));
+		_feuer3->setScale(_mainBackground->getScale());
+		_feuer3->setOrigin(_feuer3->getLocalBounds().width/2.0f, _feuer3->getLocalBounds().height/2.0f);
+		_feuer3->setPosition(window->getSize().x*0.5f + 230.0f*world->GetScaleFactor(), 170.0f*world->GetScaleFactor());
+
+		_feuer4 = new sf::Sprite();
+		_feuer4->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/firesmall.png"));
+		_feuer4->setTextureRect(sf::IntRect(0.0f, 0.0f, 91, 185));
+		_feuer4->setScale(_mainBackground->getScale());
+		_feuer4->setOrigin(_feuer4->getLocalBounds().width/2.0f, _feuer4->getLocalBounds().height/2.0f);
+		_feuer4->setPosition(window->getSize().x*0.5f - 218.0f*world->GetScaleFactor(), 170.0f*world->GetScaleFactor());
 
 
 		_life1 = new sf::Sprite();
@@ -135,10 +149,13 @@ namespace PS
 	void Background::Update(float timeStep)
 	{
 		_animationTimer += timeStep;
-		int image = _animationTimer/0.05f;
+		int image = _animationTimer/0.1f;
 
-		_feuer1->setTextureRect(sf::IntRect((image%5)*349, 0.0f, 349, 692));
-		_feuer2->setTextureRect(sf::IntRect(((image+2)%5)*349, 0.0f, 349, 692));
+		_feuer1->setTextureRect(sf::IntRect((image%7)*372, 0.0f, 372, 905));
+		_feuer2->setTextureRect(sf::IntRect(((image+3)%7)*372, 0.0f, 372, 905));
+
+		_feuer3->setTextureRect(sf::IntRect((image%7)*91, 0.0f, 91, 185));
+		_feuer4->setTextureRect(sf::IntRect(((image+3)%7)*91, 0.0f, 91, 185));
 	}
 
 	void Background::Draw(sf::RenderWindow *window)
@@ -153,6 +170,9 @@ namespace PS
 			window->draw(*_life3);
 		if(_life4)
 			window->draw(*_life4);
+
+		window->draw(*_feuer3);
+		window->draw(*_feuer4);
 	}
 
 	void Background::DrawLate(sf::RenderWindow *window)
