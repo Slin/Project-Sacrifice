@@ -85,6 +85,26 @@ namespace PS
 		_altar->setOrigin(_altar->getLocalBounds().width/2.0f, _altar->getLocalBounds().height/2.0f);
 		_altar->setPosition(window->getSize().x*0.5f + 3.0f*world->GetScaleFactor(), 623.0f*world->GetScaleFactor());
 
+		_blood1 = new sf::Sprite();
+		_blood1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/blood_stains_01.png"));
+		_blood1->setOrigin(_blood1->getLocalBounds().width/2.0f, _blood1->getLocalBounds().height/2.0f);
+		_blood1->setScale(_mainBackground->getScale());
+		_blood1->setPosition(window->getSize().x*0.5f, window->getSize().y*0.5f);
+		_blood1->setColor(sf::Color(255, 255, 255, 0));
+
+		_blood2 = new sf::Sprite();
+		_blood2->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/blood_stains_02.png"));
+		_blood2->setOrigin(_blood2->getLocalBounds().width/2.0f, _blood2->getLocalBounds().height/2.0f);
+		_blood2->setScale(_mainBackground->getScale());
+		_blood2->setPosition(window->getSize().x*0.5f, window->getSize().y*0.5f);
+		_blood2->setColor(sf::Color(255, 255, 255, 0));
+
+		_blood3 = new sf::Sprite();
+		_blood3->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/blood_stains_03.png"));
+		_blood3->setOrigin(_blood3->getLocalBounds().width/2.0f, _blood3->getLocalBounds().height/2.0f);
+		_blood3->setScale(_mainBackground->getScale());
+		_blood3->setPosition(window->getSize().x*0.5f, window->getSize().y*0.5f);
+		_blood3->setColor(sf::Color(255, 255, 255, 0));
 
 		_feuer1 = new sf::Sprite();
 		_feuer1->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/firebig.png"));
@@ -144,6 +164,18 @@ namespace PS
 	Background::~Background()
 	{
 		delete _mainBackground;
+		delete _altar;
+		delete _blood1;
+		delete _blood2;
+		delete _blood3;
+		delete _feuer1;
+		delete _feuer2;
+		delete _feuer3;
+		delete _feuer4;
+		delete _life1;
+		delete _life2;
+		delete _life3;
+		delete _life4;
 	}
 
 	void Background::Update(float timeStep)
@@ -156,6 +188,21 @@ namespace PS
 
 		_feuer3->setTextureRect(sf::IntRect((image%7)*91, 0.0f, 91, 185));
 		_feuer4->setTextureRect(sf::IntRect(((image+3)%7)*91, 0.0f, 91, 185));
+
+		if(_animationTimer > 10.0f && _animationTimer < 20.0f)
+		{
+			_blood1->setColor(sf::Color(255, 255, 255, (_animationTimer-10.0f)*255.0f/10.0f));
+		}
+		if(_animationTimer >= 20.0f && _animationTimer < 30.0f)
+		{
+			_blood1->setColor(sf::Color(255, 255, 255, 255));
+			_blood2->setColor(sf::Color(255, 255, 255, (_animationTimer-20.0f)*255.0f/10.0f));
+		}
+		if(_animationTimer >= 30.0f && _animationTimer < 40.0f)
+		{
+			_blood2->setColor(sf::Color(255, 255, 255, 255));
+			_blood3->setColor(sf::Color(255, 255, 255, (_animationTimer-30.0f)*255.0f/10.0f));
+		}
 	}
 
 	void Background::Draw(sf::RenderWindow *window)
@@ -178,6 +225,9 @@ namespace PS
 	void Background::DrawLate(sf::RenderWindow *window)
 	{
 		window->draw(*_altar);
+		window->draw(*_blood1);
+		window->draw(*_blood2);
+		window->draw(*_blood3);
 		window->draw(*_feuer1);
 		window->draw(*_feuer2);
 	}

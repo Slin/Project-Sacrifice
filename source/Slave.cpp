@@ -30,6 +30,11 @@ namespace PS
 
 	void Slave::Draw(sf::RenderWindow *window)
 	{
+
+	}
+
+	void Slave::DrawLate(sf::RenderWindow *window)
+	{
 		window->draw(*_object);
 		window->draw(*_object2);
 	}

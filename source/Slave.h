@@ -16,6 +16,7 @@ namespace PS
 		~Slave();
 
 		void Draw(sf::RenderWindow *window);
+		void DrawLate(sf::RenderWindow *window);
 		void Update(float timeStep);
 
 	private:

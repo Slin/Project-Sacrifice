@@ -36,6 +36,10 @@ namespace PS
 		sf::Sprite *_life3;
 		sf::Sprite *_life4;
 
+		sf::Sprite *_blood1;
+		sf::Sprite *_blood2;
+		sf::Sprite *_blood3;
+
 		float _animationTimer;
 	};
 }
