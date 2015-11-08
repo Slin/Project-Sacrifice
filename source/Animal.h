@@ -52,6 +52,8 @@ namespace PS
 
 		b2Body *_leftHalfBody;
 		b2Body *_rightHalfBody;
+
+		sf::Sound snd;
 	};
 }
 

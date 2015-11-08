@@ -39,6 +39,24 @@ namespace PS
 		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 592.0f*World::GetInstance()->GetScaleFactor()-_object->getGlobalBounds().height*0.5f);
 
 		_state = State::Waiting;
+
+		switch(_type){
+
+			case Pig:
+				snd.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/pig.ogg"));
+				snd.play();
+				break;
+			case Sheep:
+				snd.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/sheep.ogg"));
+				snd.play();
+				break;
+			case Baby:
+				snd.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/baby.ogg"));
+				snd.play();
+				break;
+			case Opfer:break;
+			case Nothing:break;
+		}
 	}
 
 	Animal::~Animal()
@@ -50,9 +68,13 @@ namespace PS
 	{
 		if(fuckYeah && _type == Type::Baby)
 		{
+			snd.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/baby_raise.ogg"));
+			snd.play();
 			_isMovingUp = true;
 			return;
 		}
+
+
 
 		if(_state == State::Waiting && _type != Type::Opfer)
 		{
