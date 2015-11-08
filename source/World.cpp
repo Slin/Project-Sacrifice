@@ -49,8 +49,33 @@ namespace PS
 		_gameOverText.setOrigin(_gameOverText.getLocalBounds().width * 0.5f,
 								_gameOverText.getLocalBounds().height * 0.5f);
 		_gameOverText.setScale(_scaleFactor, _scaleFactor);
-		_gameOverText.setPosition(_window->getSize().x * 0.5f, _window->getSize().y * 0.5f);
+		_gameOverText.setPosition(_window->getSize().x * 0.5f, _window->getSize().y * 0.2f);
 
+		_gameOverScoreText.setFont(_menuFont);
+		_gameOverScoreText.setString("Score: 000000");
+		_gameOverScoreText.setColor(sf::Color::White);
+		_gameOverScoreText.setCharacterSize(60.0f);
+		_gameOverScoreText.setOrigin(_gameOverScoreText.getLocalBounds().width*.5f, _gameOverScoreText.getLocalBounds().height * 0.5f);
+		_gameOverScoreText.setScale(_scaleFactor, _scaleFactor);
+		_gameOverScoreText.setPosition(_window->getSize().x*.5f, _gameOverText.getPosition().y + _gameOverText.getLocalBounds().height * 1.5f);
+		
+		_gameOverSuccessText.setFont(_menuFont);
+		_gameOverSuccessText.setString("Successful sacrifices: ");
+		_gameOverSuccessText.setColor(sf::Color::White);
+		_gameOverSuccessText.setCharacterSize(60.0f);
+		_gameOverSuccessText.setOrigin(_gameOverSuccessText.getLocalBounds().width*.5f, _gameOverSuccessText.getLocalBounds().height * 0.5f);
+		_gameOverSuccessText.setScale(_scaleFactor, _scaleFactor);
+		_gameOverSuccessText.setPosition(_window->getSize().x*.5f, _gameOverScoreText.getPosition().y + _gameOverScoreText.getLocalBounds().height* 1.5f);
+		
+		_gameOverFailText.setFont(_menuFont);
+		_gameOverFailText.setString("Failed sacrifices: ");
+		_gameOverFailText.setColor(sf::Color::White);
+		_gameOverFailText.setCharacterSize(60.0f);
+		_gameOverFailText.setOrigin(_gameOverFailText.getLocalBounds().width*.5f, _gameOverFailText.getLocalBounds().height * 0.5f);
+		_gameOverFailText.setScale(_scaleFactor, _scaleFactor);
+		_gameOverFailText.setPosition(_window->getSize().x*.5f, _gameOverSuccessText.getPosition().y + _gameOverScoreText.getLocalBounds().height*1.5f);
+		
+		
 		_scoreText.setFont(_menuFont);
 		_scoreText.setString("Score: 000000");
 		_scoreText.setColor(sf::Color::White);
@@ -75,6 +100,7 @@ namespace PS
 		_popupText.setScale(_scaleFactor, _scaleFactor);
 		_popupText.setPosition(_window->getSize().x*.5f, _window->getSize().y*.5f);
 
+		
 	}
 
 	void World::Reset()
@@ -159,6 +185,21 @@ namespace PS
 			if(_isGameOver)
 			{
 				_window->draw(_gameOverText);
+				char t[32];
+				sprintf(t, "Score: %06d", _score);
+				_gameOverScoreText.setString(t);
+				_gameOverScoreText.setOrigin(_gameOverScoreText.getLocalBounds().width*.5f, _gameOverScoreText.getLocalBounds().height * 0.5f);
+				_window->draw(_gameOverScoreText);
+
+				sprintf(t, "Successful sacrifices: %03d", _sacrificeCount);
+				_gameOverSuccessText.setString(t);
+				_gameOverSuccessText.setOrigin(_gameOverSuccessText.getLocalBounds().width*.5f, _gameOverSuccessText.getLocalBounds().height * 0.5f);
+				_window->draw(_gameOverSuccessText);
+
+				sprintf(t, "Failed sacrifices: %03d", _sacrificeFailCount);
+				_gameOverFailText.setString(t);
+				_gameOverFailText.setOrigin(_gameOverFailText.getLocalBounds().width*.5f, _gameOverFailText.getLocalBounds().height * 0.5f);
+				_window->draw(_gameOverFailText);
 			}
 
 			if(!_isGameOver && !_isMenu)

@@ -82,6 +82,10 @@ namespace PS
 		sf::Font _menuFont;
 		sf::Text _menuText;
 		sf::Text _gameOverText;
+		sf::Text _gameOverScoreText;
+		sf::Text _gameOverSuccessText;
+		sf::Text _gameOverFailText;
+
 		sf::Text _scoreText;
 
 		sf::Text _stageText;
