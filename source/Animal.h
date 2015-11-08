@@ -14,10 +14,11 @@ namespace PS
 	public:
 		enum Type
 		{
-			Pig,
-			Sheep,
-			Baby,
-			Opfer
+			Pig =0,
+			Sheep =1,
+			Baby =2,
+			Opfer =3,
+			Nothing =999
 		};
 
 		Animal(Type type);

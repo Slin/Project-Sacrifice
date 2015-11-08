@@ -9,7 +9,7 @@ namespace PS
 {
 	Ragdoll::Ragdoll(sf::Vector2f vec){
 
-		float density=1.0f;
+		float density=2.0f;
 		float friction = 0.3f;
 		position=vec;
 		//position.x =600;// rand() % World::GetInstance()->GetWindow()->getSize().x/2+100;
@@ -153,7 +153,7 @@ namespace PS
 		b2FixtureDef fixtureDefhead2;
 		fixtureDefhead2.shape = &dynamicBox;
 		fixtureDefhead2.density = density;
-		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.friction = .8f;
 		fixtureDefhead2.filter.maskBits=0;
 		_body_arm_left2->CreateFixture(&fixtureDefhead2);
 
@@ -190,7 +190,7 @@ namespace PS
 		//b2FixtureDef fixtureDefhead;
 		fixtureDefhead2.shape = &dynamicBox;
 		fixtureDefhead2.density = density;
-		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.friction = .8f;
 		fixtureDefhead2.filter.maskBits=0;
 		_body_arm_right2->CreateFixture(&fixtureDefhead2);
 
@@ -225,7 +225,7 @@ namespace PS
 		//b2FixtureDef fixtureDefhead;
 		fixtureDefhead2.shape = &dynamicBox;
 		fixtureDefhead2.density = density;
-		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.friction = .8f;
 		fixtureDefhead2.filter.maskBits=0;
 		_body_leg_left2->CreateFixture(&fixtureDefhead2);
 
@@ -257,7 +257,7 @@ namespace PS
 		//b2FixtureDef fixtureDefhead;
 		fixtureDefhead2.shape = &dynamicBox;
 		fixtureDefhead2.density = density;
-		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.friction = .8f;
 		fixtureDefhead2.filter.maskBits=0;
 		_body_leg_right2->CreateFixture(&fixtureDefhead2);
 
@@ -272,8 +272,8 @@ namespace PS
 				_shape_head->getGlobalBounds().width/6.f,
 				_shape_head->getGlobalBounds().height/3.f);
 		headJointDef.enableLimit = true;
-		headJointDef.lowerAngle = -90 * DEGTORAD;
-		headJointDef.upperAngle =  90 * DEGTORAD;
+		headJointDef.lowerAngle = 00 * DEGTORAD;
+		headJointDef.upperAngle =  180 * DEGTORAD;
 		_head_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&headJointDef);
 
 		b2RevoluteJointDef armLeftJointDef = getDefGetJointDef(
@@ -371,7 +371,7 @@ namespace PS
 		b2Vec2 forceVec;
 		float rnd = (rand()/(float)RAND_MAX);
 
-		forceVec.Set((rnd>.5f?-1:1)*20*(.5f+rnd),-15.f);
+		forceVec.Set((rnd>.5f?-1:1)*15*(.5f+rnd),-40.f);
 		_body_torso->ApplyLinearImpulse (forceVec,_body_torso->GetPosition(), true);
 
 
@@ -535,9 +535,9 @@ namespace PS
 
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
-//			std::cout << "force: " << forceModuleSq << std::endl;
-			if(forceModuleSq > 8000 && forceModuleSq< 12000)
-			{
+
+			if(forceModuleSq > 45000 && forceModuleSq< 50000)
+			{std::cout << "force: " << forceModuleSq << std::endl;
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);
 				return true;
 			}

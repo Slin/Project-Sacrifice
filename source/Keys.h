@@ -22,8 +22,12 @@ namespace PS
 
 		void SetType(Animal::Type type);
 
+		bool _doFlash=false;
+		float _doFlashTime=0;
+		float _doFlashDuration=0;
 	private:
 		sf::Sprite *_object;
+
 	};
 }
 

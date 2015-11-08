@@ -24,14 +24,13 @@ namespace PS
 
 	void EntityManager::RemoveAllEntities()
 	{
-		_entitiesToRemove.clear();
-		_entitiesToAdd.clear();
-
 		for(Entity *entity : _entities)
 		{
 			delete entity;
 		}
 		_entities.clear();
+		_entitiesToRemove.clear();
+		_entitiesToAdd.clear();
 	}
 
 	void EntityManager::Draw(sf::RenderWindow *window)

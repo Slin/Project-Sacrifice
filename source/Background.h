@@ -22,6 +22,7 @@ namespace PS
 		bool RemoveLife();
 		int GetNumberOfLifes();
 
+		void AddLife();
 	private:
 		sf::Sprite *_mainBackground;
 		sf::Sprite *_altar;

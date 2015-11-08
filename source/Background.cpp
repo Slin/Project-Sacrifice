@@ -3,6 +3,7 @@
 //
 
 #include "Background.h"
+#include <iostream>
 
 namespace PS
 {
@@ -195,5 +196,9 @@ namespace PS
 	{
 
 		return (_life1 != nullptr) + (_life2 != nullptr) + (_life3 != nullptr) + (_life4 != nullptr);
+	}
+	void Background::AddLife()
+	{
+		std::cout<<"Background::AddLife() implement me :D"<<std::endl;
 	}
 }

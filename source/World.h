@@ -66,14 +66,14 @@ namespace PS
 		Background *_background;
 		Keys *_keys;
 
-		float _spawnTimer;
+
 		bool _isKilling;
 		bool _keyWasPressed;
 		bool _isGameOver;
 		bool _isMenu;
 		bool _fuckYeah;
 
-		float _spawnTime;
+
 
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
@@ -82,6 +82,23 @@ namespace PS
 		sf::Font _menuFont;
 		sf::Text _menuText;
 		sf::Text _gameOverText;
+		sf::Text _scoreText;
+
+		sf::Text _stageText;
+
+		sf::Text _popupText;
+
+
+
+		float _musicStep=0;
+		float _nextMusicStep=0;
+		float _nextSpawnStep=0;
+
+		int _stage=1;
+
+		int _score;
+		void AddScore(int scoreToAdd);
+
 	};
 }
 
