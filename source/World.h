@@ -86,6 +86,8 @@ namespace PS
 		sf::Text _gameOverSuccessText;
 		sf::Text _gameOverFailText;
 
+		sf::Sprite _titleSprite;
+
 		sf::Text _scoreText;
 
 		sf::Text _stageText;

@@ -159,6 +159,12 @@ namespace PS
 		_life4->setOrigin(_life4->getLocalBounds().width/2.0f, _life4->getLocalBounds().height/2.0f);
 		_life4->setPosition(window->getSize().x*0.5f+63.0f*world->GetScaleFactor(), 138.0f*world->GetScaleFactor());
 
+		_abdunkel = new sf::Sprite();
+		_abdunkel->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/abdunkel.png"));
+		_abdunkel->setOrigin(_abdunkel->getLocalBounds().width/2.0f, _abdunkel->getLocalBounds().height/2.0f);
+		_abdunkel->setScale(_mainBackground->getScale());
+		_abdunkel->setPosition(window->getSize().x*0.5f, window->getSize().y*0.5f);
+
 	}
 
 	Background::~Background()
@@ -176,6 +182,7 @@ namespace PS
 		delete _life2;
 		delete _life3;
 		delete _life4;
+		delete _abdunkel;
 	}
 
 	void Background::Update(float timeStep)
@@ -228,6 +235,7 @@ namespace PS
 		window->draw(*_blood1);
 		window->draw(*_blood2);
 		window->draw(*_blood3);
+		window->draw(*_abdunkel);
 		window->draw(*_feuer1);
 		window->draw(*_feuer2);
 	}

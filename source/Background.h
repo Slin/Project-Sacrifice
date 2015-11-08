@@ -40,6 +40,8 @@ namespace PS
 		sf::Sprite *_blood2;
 		sf::Sprite *_blood3;
 
+		sf::Sprite *_abdunkel;
+
 		float _animationTimer;
 	};
 }

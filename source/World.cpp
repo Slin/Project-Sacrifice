@@ -32,7 +32,7 @@ namespace PS
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");//, sf::Style::Fullscreen);
 		_scaleFactor = _window->getSize().y / 1080.0f;
 
-		_menuFont.loadFromFile("assets/fonts/CopalSolid.ttf");
+		_menuFont.loadFromFile("assets/fonts/troika.otf");
 
 		_menuText.setFont(_menuFont);
 		_menuText.setString("Press SPACE to start the game.");
@@ -100,7 +100,10 @@ namespace PS
 		_popupText.setScale(_scaleFactor, _scaleFactor);
 		_popupText.setPosition(_window->getSize().x*.5f, _window->getSize().y*.5f);
 
-		
+		_titleSprite.setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Logo.png"));
+		_titleSprite.setOrigin(_titleSprite.getLocalBounds().width/2.0f, _titleSprite.getLocalBounds().height/2.0f);
+		_titleSprite.setScale(_scaleFactor, _scaleFactor);
+		_titleSprite.setPosition(_window->getSize().x*0.5f, _window->getSize().y*0.5f);
 	}
 
 	void World::Reset()
@@ -180,6 +183,7 @@ namespace PS
 			if(_isMenu)
 			{
 				_window->draw(_menuText);
+				_window->draw(_titleSprite);
 			}
 
 			if(_isGameOver)
