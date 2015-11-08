@@ -40,7 +40,7 @@ namespace PS
 		_menuText.setCharacterSize(60.0f);
 		_menuText.setOrigin(_menuText.getLocalBounds().width * 0.5f, _menuText.getLocalBounds().height * 0.5f);
 		_menuText.setScale(_scaleFactor, _scaleFactor);
-		_menuText.setPosition(_window->getSize().x * 0.5f, 1000.0f * _scaleFactor);
+		_menuText.setPosition(_window->getSize().x * 0.5f, 970.0f * _scaleFactor);
 
 		_gameOverText.setFont(_menuFont);
 		_gameOverText.setString("GAME OVER.");
