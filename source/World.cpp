@@ -46,6 +46,7 @@ namespace PS
 		_isKilling = false;
 		_isGameOver = false;
 		_fuckYeah = false;
+		_isMenu = true;
 
 		_background = new Background();
 		_priest = new Priest();
@@ -81,8 +82,8 @@ namespace PS
 			{
 				_physicsWorld->Step(1.0f / 60.0f, 2, 1);
 
-				EntityManager::GetInstance()->Update(1.0f/60.0f);
 				Update(1.0f/60.0f);
+				EntityManager::GetInstance()->Update(1.0f/60.0f);
 
 				time -= sf::seconds(1.0f / 60.0f);
 				counter += 1;
@@ -131,9 +132,28 @@ namespace PS
 
 	void World::Update(float timeStep)
 	{
+		if(_isMenu)
+		{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				if(!_keyWasPressed)
+				{
+					_isMenu = false;
+					_keyWasPressed = true;
+				}
+			}
+			else
+			{
+				_keyWasPressed = false;
+			}
+			return;
+		}
+
 		if(_isGameOver && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			Reset();
+			_keyWasPressed = true;
+			return;
 		}
 
 		if(_isGameOver)
@@ -210,7 +230,7 @@ namespace PS
 			}
 
 			_spawnTimer = 0.0f;
-			Animal::Type type = static_cast<Animal::Type>(rand()%3);
+			Animal::Type type = static_cast<Animal::Type>(rand()%4);
 			_keys->SetType(type);
 			_currentAnimal = new Animal(type);
 		}

@@ -23,10 +23,10 @@ namespace PS
 
 	void Keys::SetType(Animal::Type type)
 	{
-/*		if(type == Animal::Type::Mensch)
+		if(type == Animal::Type::Opfer)
 		{
 			_object->setTextureRect(sf::IntRect(0.0f, 0.0f, 208, 208));
-		}*/
+		}
 		if(type == Animal::Type::Pig)
 		{
 			_object->setTextureRect(sf::IntRect(208.0f, 0.0f, 208, 208));

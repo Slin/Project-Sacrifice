@@ -70,6 +70,7 @@ namespace PS
 		bool _isKilling;
 		bool _keyWasPressed;
 		bool _isGameOver;
+		bool _isMenu;
 		bool _fuckYeah;
 
 		float _spawnTime;
