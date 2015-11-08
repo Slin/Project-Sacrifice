@@ -41,15 +41,23 @@ namespace PS
 
 	void Slave::Update(float timeStep)
 	{
-		_animationTimer += timeStep;
-
-		int image = ((int)(_animationTimer/0.1f))%5;
-		if(image > 2)
+		if(_playAnimation)
 		{
-			image = 5-image;
-		}
+			_animationTimer += timeStep;
 
-		_object->setTextureRect(sf::IntRect(image*199, 0.0f, 199, 318));
-		_object2->setTextureRect(sf::IntRect(image*199, 0.0f, 199, 318));
+			int image = ((int) (_animationTimer / 0.1f)) % 5;
+			if(image > 2)
+			{
+				image = 5 - image;
+			}
+
+			_object->setTextureRect(sf::IntRect(image * 199, 0.0f, 199, 318));
+			_object2->setTextureRect(sf::IntRect(image * 199, 0.0f, 199, 318));
+			if(_animationTimer>.5f){
+				_playAnimation=false;
+			}
+		} else {
+			_animationTimer=0;
+		}
 	}
 }

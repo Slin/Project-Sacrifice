@@ -13,8 +13,8 @@ namespace PS
 		_object->setTextureRect(sf::IntRect(4.0f*208.0f, 0.0f, 208, 208));
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setOrigin(_object->getLocalBounds().width/2.0f, _object->getLocalBounds().height/2.0f);
-		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 850.0f*World::GetInstance()->GetScaleFactor());
-		_object->setColor(sf::Color(255,255,255,0));
+		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 765.0f*World::GetInstance()->GetScaleFactor());
+		_object->setColor(sf::Color(255,255,255,255));
 	}
 
 	Keys::~Keys()
@@ -47,18 +47,7 @@ namespace PS
 
 	void Keys::Update(float timeStep)
 	{
-		if(_doFlash){
-			if(_doFlashTime<.5f){
-				_doFlashTime+=timeStep;
-				float alpha = fabs(1-sin((_doFlashTime/.1f)));
-				std::cout<<"value: "<<alpha<<std::endl;
-				_object->setColor(sf::Color(255,255,255,alpha*255));
-			} else {
-				_doFlash=false;
-				_doFlashTime=0;
-				_object->setColor(sf::Color(255,255,255,255));
-			}
-		}
+
 
 	}
 

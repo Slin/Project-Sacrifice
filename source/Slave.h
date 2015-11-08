@@ -19,10 +19,12 @@ namespace PS
 		void DrawLate(sf::RenderWindow *window);
 		void Update(float timeStep);
 
+		bool _playAnimation=false;
 	private:
 		sf::Sprite *_object;
 		sf::Sprite *_object2;
 		float _animationTimer;
+
 	};
 }
 

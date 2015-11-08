@@ -14,6 +14,7 @@
 #include "SoundPool.h"
 #include "EntityManager.h"
 
+
 namespace PS
 {
 	class Priest;
@@ -21,6 +22,7 @@ namespace PS
 	class ParticleEmitter;
 	class Background;
 	class Keys;
+	class Slave;
 
 	class World
 	{
@@ -110,7 +112,7 @@ namespace PS
 		int _sacrificeFailCount;
 		void AddScore(int scoreToAdd);
 
-
+		Slave* _slave;
 
 	};
 }

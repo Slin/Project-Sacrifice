@@ -124,13 +124,13 @@ namespace PS
 
 		_background = new Background();
 		_priest = new Priest();
-		new Slave();
+		_slave = new Slave();
 		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
 
 		_music.play();
 		_music.setPitch(1);
-		_musicStep = _music.getDuration().asMilliseconds() / 4.f;
+		_musicStep = _music.getDuration().asMilliseconds() / 8.f;
 		_nextMusicStep = _musicStep;
 		_nextSpawnStep = _nextMusicStep - _musicStep / 4.f;
 
@@ -324,8 +324,11 @@ namespace PS
 							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
 							_stabSound.play();
 
+							_slave->_playAnimation=true;
+
 							if(!IsCorrectKeyPressed())
 							{
+								
 								if(_background->RemoveLife())
 								{
 									_isGameOver = true;
@@ -415,7 +418,7 @@ namespace PS
 			{
 				_stage++;
 				_music.setPitch(_music.getPitch() + .1f);
-				_musicStep = (_music.getDuration().asMilliseconds() / _music.getPitch()) / 4;
+				_musicStep = (_music.getDuration().asMilliseconds() / _music.getPitch()) / 8;
 				_nextMusicStep = _musicStep;
 				_nextSpawnStep = _nextMusicStep - _musicStep / 2.f;
 				_music.play();
