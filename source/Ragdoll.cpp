@@ -371,10 +371,8 @@ namespace PS
 		b2Vec2 forceVec;
 		float rnd = (rand()/(float)RAND_MAX);
 
-		forceVec.Set((rnd>.5f?-1:1)*15*(.5f+rnd),-40.f);
+		forceVec.Set((rnd>.5f?-1:1)*20*(.5f+rnd),-35.f);
 		_body_torso->ApplyLinearImpulse (forceVec,_body_torso->GetPosition(), true);
-
-
 	}
 
 	void Ragdoll::GetFixtureDef(b2FixtureDef& fixtureDef,b2PolygonShape& dynamicShape, sf::Sprite *shape, float32 density, float32 friction)
