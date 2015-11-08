@@ -87,8 +87,11 @@ namespace PS
 		sf::Text _stageText;
 
 		sf::Text _popupText;
+		bool _showPopup=false;
+		float _popupTimer=0;
+		std::string _currentPopupString;
 
-
+		void ShowPopup(std::string text);
 
 		float _musicStep=0;
 		float _nextMusicStep=0;
@@ -97,7 +100,11 @@ namespace PS
 		int _stage=1;
 
 		int _score;
+		int _sacrificeCount;
+		int _sacrificeFailCount;
 		void AddScore(int scoreToAdd);
+
+
 
 	};
 }

@@ -71,9 +71,9 @@ namespace PS
 		_popupText.setString("100 Points");
 		_popupText.setColor(sf::Color::White);
 		_popupText.setCharacterSize(60.0f);
-		_popupText.setOrigin(_popupText.getLocalBounds().width * 0.5f, _popupText.getLocalBounds().height * 0.5f);
+		_popupText.setOrigin(_popupText.getLocalBounds().width*.5f, _popupText.getLocalBounds().height * 0.5f);
 		_popupText.setScale(_scaleFactor, _scaleFactor);
-		_popupText.setPosition(500, _menuText.getLocalBounds().height);
+		_popupText.setPosition(_window->getSize().x*.5f, _window->getSize().y*.5f);
 
 	}
 
@@ -103,10 +103,16 @@ namespace PS
 		_music.setPitch(1);
 		_musicStep = _music.getDuration().asMilliseconds() / 4.f;
 		_nextMusicStep = _musicStep;
-		_nextSpawnStep = _nextMusicStep - _musicStep / 2.f;
+		_nextSpawnStep = _nextMusicStep - _musicStep / 4.f;
 
 		_stage=1;
 		_score=0;
+		_sacrificeCount=0;
+		_sacrificeFailCount=0;
+
+		_showPopup=false;
+		_popupTimer=0;
+
 	}
 
 	void World::Loop()
@@ -165,6 +171,23 @@ namespace PS
 				sprintf(t, "Stage: %d", _stage);
 				_stageText.setString(t);
 				_window->draw(_stageText);
+
+				if(_showPopup){
+					if(_popupTimer<.75f){
+						_popupTimer+=deltaTime.asSeconds();
+
+						float value = abs(sin(_popupTimer/.25f));
+
+						_popupText.setScale(_scaleFactor*value,_scaleFactor*value);
+						_popupText.setOrigin(_popupText.getLocalBounds().width*.5f, _popupText.getLocalBounds().height * 0.5f);
+						_window->draw(_popupText);
+					} else {
+						_showPopup=false;
+						_popupTimer=0;
+					}
+
+				}
+
 			}
 
 			_window->display();
@@ -265,9 +288,9 @@ namespace PS
 
 								_fuckYeah = false;
 								if(_currentAnimal->GetType()==Animal::Type::Baby){
-									AddScore(-500);
+									AddScore(-500*_stage);
 								} else {
-									AddScore(-100);
+									AddScore(-100*_stage);
 								}
 							}
 							else
@@ -281,7 +304,7 @@ namespace PS
 										break;
 									case Animal::Baby:
 										AddScore(250*_stage);
-										_background->AddLife();
+										//_background->AddLife();
 										break;
 									case Animal::Nothing:break;
 								}
@@ -338,7 +361,7 @@ namespace PS
 			if(_music.getPlayingOffset().asMilliseconds() >= _nextMusicStep)
 			{
 				_keys->_doFlash = true;
-				_keys->_doFlashDuration = _musicStep / 4.f;
+				_keys->_doFlashDuration = _musicStep/4.f;
 				_nextMusicStep += _musicStep;
 
 			}
@@ -346,7 +369,6 @@ namespace PS
 			if(_music.getStatus() == sf::SoundSource::Status::Stopped)
 			{
 				_stage++;
-				std::cout<<"stage: "<<_stage<<std::endl;
 				_music.setPitch(_music.getPitch() + .1f);
 				_musicStep = (_music.getDuration().asMilliseconds() / _music.getPitch()) / 4;
 				_nextMusicStep = _musicStep;
@@ -364,6 +386,20 @@ namespace PS
 
 	void World::AddScore(int scoreToAdd)
 	{
+		if(scoreToAdd<0){
+			_sacrificeFailCount++;
+		} else {
+			_sacrificeCount++;
+		}
 		_score += scoreToAdd;
+		char t[32];
+		sprintf(t, "%d", scoreToAdd);
+		ShowPopup(t);
+	}
+	void World::ShowPopup(std::string text)
+	{
+		_popupText.setScale(0,0);
+		_popupText.setString(text);
+		_showPopup=true;
 	}
 }

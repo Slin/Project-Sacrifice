@@ -117,7 +117,9 @@ namespace PS
 			_rightHalfBody->CreateFixture(&fixtureDef);
 
 			_leftHalfBody->ApplyLinearImpulse((_type==Type::Baby)?b2Vec2(-0.6f, -1.5f):b2Vec2(-0.9f, -2.0f), _leftHalfBody->GetWorldCenter(), true);
+			_leftHalfBody->ApplyAngularImpulse(-.1f,true);
 			_rightHalfBody->ApplyLinearImpulse((_type==Type::Baby)?b2Vec2(0.2f, -0.3f):b2Vec2(0.75f, -1.5f), _rightHalfBody->GetWorldCenter(), true);
+			_rightHalfBody->ApplyAngularImpulse((_type==Type::Baby)?0.01f:0.1f,true);
 		}
 
 		if(_state == State::Waiting && _type == Type::Opfer){

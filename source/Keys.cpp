@@ -3,7 +3,7 @@
 //
 
 #include "Keys.h"
-
+#include <iostream>
 namespace PS
 {
 	Keys::Keys()
@@ -14,6 +14,7 @@ namespace PS
 		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setOrigin(_object->getLocalBounds().width/2.0f, _object->getLocalBounds().height/2.0f);
 		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 850.0f*World::GetInstance()->GetScaleFactor());
+		_object->setColor(sf::Color(255,255,255,0));
 	}
 
 	Keys::~Keys()
@@ -49,7 +50,8 @@ namespace PS
 		if(_doFlash){
 			if(_doFlashTime<.5f){
 				_doFlashTime+=timeStep;
-				float alpha = cos((1-(_doFlashTime/.25f)));
+				float alpha = abs(1-sin((_doFlashTime/.1f)));
+				std::cout<<"value: "<<alpha<<std::endl;
 				_object->setColor(sf::Color(255,255,255,alpha*255));
 			} else {
 				_doFlash=false;
