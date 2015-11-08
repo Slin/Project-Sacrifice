@@ -50,7 +50,7 @@ namespace PS
 		if(_doFlash){
 			if(_doFlashTime<.5f){
 				_doFlashTime+=timeStep;
-				float alpha = abs(1-sin((_doFlashTime/.1f)));
+				float alpha = fabs(1-sin((_doFlashTime/.1f)));
 				std::cout<<"value: "<<alpha<<std::endl;
 				_object->setColor(sf::Color(255,255,255,alpha*255));
 			} else {

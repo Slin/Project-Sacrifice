@@ -29,8 +29,7 @@ namespace PS
 
 	World::World() : _physicsWorld(nullptr), _background(nullptr)
 	{
-		sf::VideoMode videoMode = sf::VideoMode::getDesktopMode();
-		_window = new sf::RenderWindow(, "Project Sacrifice", sf::Style::Fullscreen);
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");//, sf::Style::Fullscreen);
 		_scaleFactor = _window->getSize().y / 1080.0f;
 
 		_menuFont.loadFromFile("assets/fonts/CopalSolid.ttf");
@@ -177,7 +176,7 @@ namespace PS
 					if(_popupTimer<.75f){
 						_popupTimer+=deltaTime.asSeconds();
 
-						float value = abs(sin(_popupTimer/.25f));
+						float value = fabs(sin(_popupTimer/.25f));
 
 						_popupText.setScale(_scaleFactor*value,_scaleFactor*value);
 						_popupText.setOrigin(_popupText.getLocalBounds().width*.5f, _popupText.getLocalBounds().height * 0.5f);
