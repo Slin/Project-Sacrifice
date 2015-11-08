@@ -78,6 +78,10 @@ namespace PS
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
 		sf::Music _music;
+
+		sf::Font _menuFont;
+		sf::Text _menuText;
+		sf::Text _gameOverText;
 	};
 }
 

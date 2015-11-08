@@ -29,6 +29,24 @@ namespace PS
 	{
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
+
+		_menuFont.loadFromFile("assets/fonts/daemones.ttf");
+
+		_menuText.setFont(_menuFont);
+		_menuText.setString("Press SPACE to start the game.");
+		_menuText.setColor(sf::Color::White);
+		_menuText.setCharacterSize(60.0f);
+		_menuText.setOrigin(_menuText.getLocalBounds().width*0.5f, _menuText.getLocalBounds().height*0.5f);
+		_menuText.setScale(_scaleFactor, _scaleFactor);
+		_menuText.setPosition(_window->getSize().x*0.5f, 1000.0f*_scaleFactor);
+
+		_gameOverText.setFont(_menuFont);
+		_gameOverText.setString("GAME OVER.");
+		_gameOverText.setColor(sf::Color::White);
+		_gameOverText.setCharacterSize(100.0f);
+		_gameOverText.setOrigin(_gameOverText.getLocalBounds().width*0.5f, _gameOverText.getLocalBounds().height*0.5f);
+		_gameOverText.setScale(_scaleFactor, _scaleFactor);
+		_gameOverText.setPosition(_window->getSize().x*0.5f, _window->getSize().y*0.5f);
 	}
 
 	void World::Reset()
@@ -92,6 +110,16 @@ namespace PS
 			_window->clear(sf::Color::Black);
 
 			EntityManager::GetInstance()->Draw(_window);
+
+			if(_isMenu)
+			{
+				_window->draw(_menuText);
+			}
+
+			if(_isGameOver)
+			{
+				_window->draw(_gameOverText);
+			}
 
 			_window->display();
 		}
