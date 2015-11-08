@@ -11,6 +11,7 @@
 #include "ParticleEmitter.h"
 #include "Background.h"
 #include "Keys.h"
+#include "Slave.h"
 
 namespace PS
 {
@@ -67,6 +68,7 @@ namespace PS
 		_isMenu = true;
 
 		_background = new Background();
+		new Slave();
 		_priest = new Priest();
 		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
@@ -263,6 +265,6 @@ namespace PS
 			_currentAnimal = new Animal(type);
 		}
 
-		_spawnTime -= timeStep*0.01f;
+		_spawnTime -= timeStep*0.01f*_spawnTime;
 	}
 }

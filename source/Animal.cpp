@@ -122,7 +122,7 @@ namespace PS
 
 		if(_isMovingUp)
 		{
-			_object->move(0.0f, 3.0f);
+			_object->move(0.0f, -3.0f);
 		}
 	}
 
