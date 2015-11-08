@@ -535,7 +535,7 @@ namespace PS
 
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
-			std::cout << "force: " << forceModuleSq << std::endl;
+//			std::cout << "force: " << forceModuleSq << std::endl;
 			if(forceModuleSq > 8000 && forceModuleSq< 12000)
 			{
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);

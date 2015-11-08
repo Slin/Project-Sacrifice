@@ -70,6 +70,7 @@ namespace PS
 		bool _isKilling;
 		bool _keyWasPressed;
 		bool _isGameOver;
+		bool _isMenu;
 		bool _fuckYeah;
 
 		float _spawnTime;
@@ -77,6 +78,10 @@ namespace PS
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
 		sf::Music _music;
+
+		sf::Font _menuFont;
+		sf::Text _menuText;
+		sf::Text _gameOverText;
 	};
 }
 
