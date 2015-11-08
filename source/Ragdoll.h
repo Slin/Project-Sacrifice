@@ -43,6 +43,7 @@ namespace PS
 		b2RevoluteJoint *_arm_right2_joint;
 		b2RevoluteJoint *_leg_left2_joint;
 		b2RevoluteJoint *_leg_right2_joint;
+
 		bool headJointDetached=false;
 		bool armLJointDetached=false;
 		bool armRJointDetached=false;
@@ -77,6 +78,8 @@ namespace PS
 
 		b2RevoluteJointDef jointDef;
 		bool CheckBreakForce(b2RevoluteJoint* joint,float timeStep);
+
+		void SetStiff(bool enable,float32 limit);
 	};
 }
 

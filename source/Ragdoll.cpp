@@ -95,22 +95,25 @@ namespace PS
 		_bodyDef_torso.position.Set(
 				position.x*World::WORLD_TO_BOX2D,
 				position.y*World::WORLD_TO_BOX2D);
+		_bodyDef_torso.angle=90*DEGTORAD;
 		_body_torso = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_torso);
 		b2PolygonShape dynamicBox;
 		dynamicBox.SetAsBox((_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
 							(_shape_torso->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density*2.f;
+		fixtureDef.density = density;
 		fixtureDef.friction = friction;
 		_body_torso->CreateFixture(&fixtureDef);
 
 	//b2d head
 		_bodyDef_head.type = b2_dynamicBody;
 		_bodyDef_head.position.Set(
-				position.x*World::WORLD_TO_BOX2D,
-				(position.y+_shape_head->getGlobalBounds().height)*World::WORLD_TO_BOX2D);
+				(position.x+_shape_head->getGlobalBounds().width)*World::WORLD_TO_BOX2D,
+				position.y*World::WORLD_TO_BOX2D);
+		_bodyDef_head.angle = 90*DEGTORAD;
 		_body_head = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_head);
+
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_head->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
 							(_shape_head->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
@@ -123,8 +126,9 @@ namespace PS
 		//b2d arm
 		_bodyDef_arm_left.type = b2_dynamicBody;
 		_bodyDef_arm_left.position.Set(
-				(position.x+_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
-				position.y*World::WORLD_TO_BOX2D);
+				(position.x)*World::WORLD_TO_BOX2D,
+				(position.y+_shape_torso->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
+		_bodyDef_arm_left.angle = 90*DEGTORAD;
 		_body_arm_left = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_left);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_arm_left->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
@@ -136,10 +140,12 @@ namespace PS
 		_body_arm_left->CreateFixture(&fixtureDef);
 //b2d arm left2
 		_bodyDef_arm_left2.type = b2_dynamicBody;
+
 		_bodyDef_arm_left2.position.Set(
 				_bodyDef_arm_left.position.x,
-				_bodyDef_arm_left.position.y*4
+				_bodyDef_arm_left.position.y
 		);
+		_bodyDef_arm_left2.angle = 90*DEGTORAD;
 		_body_arm_left2 = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_left2);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_arm_left2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
@@ -155,8 +161,9 @@ namespace PS
 		//b2d arm right
 		_bodyDef_arm_right.type = b2_dynamicBody;
 		_bodyDef_arm_right.position.Set(
-				(position.x-_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
-				position.y*World::WORLD_TO_BOX2D);
+				(position.x)*World::WORLD_TO_BOX2D,
+				(position.y-_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D);
+		_bodyDef_arm_right.angle = 90*DEGTORAD;
 		_body_arm_right = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_right);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_arm_right->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
@@ -173,8 +180,9 @@ namespace PS
 		_bodyDef_arm_right2.type = b2_dynamicBody;
 		_bodyDef_arm_right2.position.Set(
 				_bodyDef_arm_right.position.x,
-				_bodyDef_arm_right.position.y*4
+				_bodyDef_arm_right.position.y
 		);
+		_bodyDef_arm_right2.angle = 90*DEGTORAD;
 		_body_arm_right2 = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_arm_right2);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_arm_right2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
@@ -189,8 +197,9 @@ namespace PS
 		// b2d leg left
 		_bodyDef_leg_left.type = b2_dynamicBody;
 		_bodyDef_leg_left.position.Set(
-				(position.x+_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
-				(position.y+_shape_leg_left->getGlobalBounds().height/2.f)*World::WORLD_TO_BOX2D);
+				(position.x-_shape_leg_left->getGlobalBounds().width*2)*World::WORLD_TO_BOX2D,
+				(position.y)*World::WORLD_TO_BOX2D);
+		_bodyDef_leg_left.angle = 90*DEGTORAD;
 		_body_leg_left = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_left);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_leg_left->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D, (_shape_leg_left->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
@@ -204,26 +213,29 @@ namespace PS
 		// b2d leg left2
 		_bodyDef_leg_left2.type = b2_dynamicBody;
 		_bodyDef_leg_left2.position.Set(
-				_bodyDef_leg_left.position.x,
-				_bodyDef_leg_left.position.y*4//(_shape_leg_left2->getGlobalBounds().height*World::WORLD_TO_BOX2D)
+				_bodyDef_leg_left.position.x-_shape_leg_left2->getGlobalBounds().width*World::WORLD_TO_BOX2D,
+				_bodyDef_leg_left.position.y
 		);
+		_bodyDef_leg_left.angle = 90*DEGTORAD;
 		_body_leg_left2 = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_left2);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox(
 				(_shape_leg_left2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
 				(_shape_leg_left2->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
 		//b2FixtureDef fixtureDefhead;
-		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density;
-		fixtureDef.friction = friction;
-		_body_leg_left2->CreateFixture(&fixtureDef);
+		fixtureDefhead2.shape = &dynamicBox;
+		fixtureDefhead2.density = density;
+		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.filter.maskBits=0;
+		_body_leg_left2->CreateFixture(&fixtureDefhead2);
 
 
 		//b2d leg right
 		_bodyDef_leg_right.type = b2_dynamicBody;
 		_bodyDef_leg_right.position.Set(
-				(position.x-_shape_torso->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D,
-				(position.y+_shape_leg_right->getGlobalBounds().height/2)*World::WORLD_TO_BOX2D);
+				(position.x-_shape_leg_right->getGlobalBounds().width*2)*World::WORLD_TO_BOX2D,
+				(position.y)*World::WORLD_TO_BOX2D);
+		_bodyDef_leg_right.angle = 90*DEGTORAD;
 		_body_leg_right = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_right);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_leg_right->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D, (_shape_leg_right->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
@@ -235,17 +247,19 @@ namespace PS
 		//b2d leg right2
 		_bodyDef_leg_right2.type = b2_dynamicBody;
 		_bodyDef_leg_right2.position.Set(
-				_bodyDef_leg_right.position.x,
-				_bodyDef_leg_right.position.y*4
+				_bodyDef_leg_right.position.x-_shape_leg_right->getGlobalBounds().width*World::WORLD_TO_BOX2D,
+				_bodyDef_leg_right.position.y
 		);
+		_bodyDef_leg_right2.angle = 90*DEGTORAD;
 		_body_leg_right2 = World::GetInstance()->GetPhysicsWorld()->CreateBody(&_bodyDef_leg_right2);
 		//b2PolygonShape dynamicBox2;
 		dynamicBox.SetAsBox((_shape_leg_right2->getGlobalBounds().width/2.0f)*World::WORLD_TO_BOX2D, (_shape_leg_right2->getGlobalBounds().height/2.0f)*World::WORLD_TO_BOX2D);
 		//b2FixtureDef fixtureDefhead;
-		fixtureDef.shape = &dynamicBox;
-		fixtureDef.density = density;
-		fixtureDef.friction = friction;
-		_body_leg_right2->CreateFixture(&fixtureDef);
+		fixtureDefhead2.shape = &dynamicBox;
+		fixtureDefhead2.density = density;
+		fixtureDefhead2.friction = friction;
+		fixtureDefhead2.filter.maskBits=0;
+		_body_leg_right2->CreateFixture(&fixtureDefhead2);
 
 
 
@@ -349,10 +363,17 @@ namespace PS
 		legright2JointDef.upperAngle =  0 * DEGTORAD;
 		_leg_right2_joint = (b2RevoluteJoint*) World::GetInstance()->GetPhysicsWorld()->CreateJoint(&legright2JointDef);
 
+		//SetStiff(true,0);
+		//_body_torso->SetTransform(_body_torso->GetPosition(),-90*DEGTORAD);
+		//_body_torso->SetAngularVelocity(0);
 
+		//SetStiff(false,0);
 		b2Vec2 forceVec;
-		forceVec.Set(-.1f,-.8f);
-		_body_torso->ApplyLinearImpulse(forceVec,_body_torso->GetPosition(), true);
+		float rnd = (rand()/(float)RAND_MAX);
+
+		forceVec.Set((rnd>.5f?-1:1)*20*(.5f+rnd),-15.f);
+		_body_torso->ApplyLinearImpulse (forceVec,_body_torso->GetPosition(), true);
+
 
 	}
 
@@ -515,7 +536,7 @@ namespace PS
 			reactionForce = joint->GetReactionForce(1 / timeStep);
 			float forceModuleSq = reactionForce.LengthSquared();
 			std::cout << "force: " << forceModuleSq << std::endl;
-			if(forceModuleSq > 15000)
+			if(forceModuleSq > 8000 && forceModuleSq< 12000)
 			{
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);
 				return true;
@@ -547,5 +568,72 @@ namespace PS
 		window->draw(*_shape_arm_right2);
 		window->draw(*_shape_arm_right);
 
+	}
+	void Ragdoll::SetStiff(bool enable,float32 limit)
+	{
+		if(enable){
+
+			_body_head->SetType(b2_kinematicBody);
+			_body_torso->SetType(b2_kinematicBody);
+			_body_arm_left->SetType(b2_kinematicBody);
+			_body_arm_right->SetType(b2_kinematicBody);
+			_body_leg_left->SetType(b2_kinematicBody);
+			_body_leg_right->SetType(b2_kinematicBody);
+			_body_arm_left2->SetType(b2_kinematicBody);
+			_body_arm_right2->SetType(b2_kinematicBody);
+			_body_leg_left2->SetType(b2_kinematicBody);
+			_body_leg_right2->SetType(b2_kinematicBody);
+			
+			_head_joint->SetLimits(limit,limit);
+			_arm_left_joint->EnableLimit(true);
+			_arm_left_joint->SetLimits(limit,limit);
+			_arm_left2_joint->SetLimits(limit,limit);
+
+			_arm_right_joint->EnableLimit(true);
+			_arm_right_joint->SetLimits(limit,limit);
+			_arm_right2_joint->SetLimits(limit,limit);
+
+			_leg_left_joint->SetLimits(limit,limit);
+			_leg_left2_joint->SetLimits(limit,limit);
+
+			_leg_right_joint->SetLimits(limit,limit);
+			_leg_right2_joint->SetLimits(limit,limit);
+		} else {
+			
+			_head_joint->SetLimits(-90 * DEGTORAD,90 * DEGTORAD);
+
+			_arm_left_joint->EnableLimit(false);
+			_arm_left2_joint->SetLimits(0*DEGTORAD,160*DEGTORAD);
+
+			_arm_right_joint->EnableLimit(false);
+			_arm_right2_joint->SetLimits(0*DEGTORAD,160*DEGTORAD);
+
+			_leg_left_joint->SetLimits(-90 * DEGTORAD,160*DEGTORAD);
+			_leg_left2_joint->SetLimits(-90 * DEGTORAD,0*DEGTORAD);
+
+			_leg_right_joint->SetLimits(-90 * DEGTORAD,160*DEGTORAD);
+			_leg_right2_joint->SetLimits(-90 * DEGTORAD,0*DEGTORAD);
+
+			_body_head->SetType(b2_dynamicBody);
+			_body_torso->SetType(b2_dynamicBody);
+			_body_arm_left->SetType(b2_dynamicBody);
+			_body_arm_right->SetType(b2_dynamicBody);
+			_body_leg_left->SetType(b2_dynamicBody);
+			_body_leg_right->SetType(b2_dynamicBody);
+			_body_arm_left2->SetType(b2_dynamicBody);
+			_body_arm_right2->SetType(b2_dynamicBody);
+			_body_leg_left2->SetType(b2_dynamicBody);
+			_body_leg_right2->SetType(b2_dynamicBody);
+		}
+
+		_head_joint;
+		_arm_left_joint;
+		_arm_right_joint;
+		_leg_left_joint;
+		_leg_right_joint;
+		_arm_left2_joint;
+		_arm_right2_joint;
+		_leg_left2_joint;
+		_leg_right2_joint;
 	}
 }
