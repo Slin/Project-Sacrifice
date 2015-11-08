@@ -14,6 +14,8 @@ namespace PS
 
 		_leftHalfBody = nullptr;
 
+		_isMovingUp = false;
+
 		_type = type;
 
 		_object = new sf::Sprite();
@@ -44,11 +46,16 @@ namespace PS
 
 	}
 
-	void Animal::Kill()
+	void Animal::Kill(bool fuckYeah)
 	{
+		if(fuckYeah && _type == Type::Baby)
+		{
+			_isMovingUp = true;
+			return;
+		}
+
 		if(_state == State::Waiting && _type != Type::Opfer)
 		{
-
 			_state = State::Dead;
 
 			_leftHalf = new sf::Sprite();
@@ -111,6 +118,11 @@ namespace PS
 		{
 			_rightHalf->setPosition(_rightHalfBody->GetPosition().x/World::WORLD_TO_BOX2D, _rightHalfBody->GetPosition().y/World::WORLD_TO_BOX2D);
 			_rightHalf->setRotation(_rightHalfBody->GetAngle()*180.0f/3.14f);
+		}
+
+		if(_isMovingUp)
+		{
+			_object->move(0.0f, 3.0f);
 		}
 	}
 

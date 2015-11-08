@@ -22,6 +22,18 @@ namespace PS
 
 	}
 
+	void EntityManager::RemoveAllEntities()
+	{
+		_entitiesToRemove.clear();
+		_entitiesToAdd.clear();
+
+		for(Entity *entity : _entities)
+		{
+			delete entity;
+		}
+		_entities.clear();
+	}
+
 	void EntityManager::Draw(sf::RenderWindow *window)
 	{
 		//draw entities

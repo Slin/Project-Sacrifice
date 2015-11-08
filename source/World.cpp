@@ -25,25 +25,38 @@ namespace PS
 		return _instance;
 	}
 
-	World::World() : _currentAnimal(nullptr), _spawnTime(3.0f), _isKilling(false), _isGameOver(false)
+	World::World() : _physicsWorld(nullptr), _background(nullptr)
 	{
 		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");
 		_scaleFactor = _window->getSize().y/1080.0f;
+	}
+
+	void World::Reset()
+	{
+		EntityManager::GetInstance()->RemoveAllEntities();
+
+		if(_physicsWorld)
+			delete _physicsWorld;
 
 		b2Vec2 gravity(0.0f, 9.81f);
 		_physicsWorld = new b2World(gravity);
-	}
 
-	void World::Loop()
-	{
+		_currentAnimal = nullptr;
+		_spawnTime = 3.0f;
+		_isKilling = false;
+		_isGameOver = false;
+		_fuckYeah = false;
+
 		_background = new Background();
 		_priest = new Priest();
 		_keys = new Keys();
 		_bloodParticles = new ParticleEmitter();
-		sf::Vector2f vec;
-		vec.x=600;
-		vec.y=0;
-		new Ragdoll(vec);
+	}
+
+	void World::Loop()
+	{
+		Reset();
+
 		sf::Time deltaTime = sf::Time::Zero;
 		sf::Time time = sf::Time::Zero;
 		sf::Clock clock;
@@ -94,6 +107,10 @@ namespace PS
 		{
 			switch(_currentAnimal->GetType())
 			{
+				case Animal::Type::Opfer:
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+						return true;
+					break;
 				case Animal::Type::Pig:
 					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 						return true;
@@ -114,6 +131,11 @@ namespace PS
 
 	void World::Update(float timeStep)
 	{
+		if(_isGameOver && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			Reset();
+		}
+
 		if(_isGameOver)
 			return;
 
@@ -144,6 +166,12 @@ namespace PS
 								{
 									_isGameOver = true;
 								}
+
+								_fuckYeah = false;
+							}
+							else
+							{
+								_fuckYeah = true;
 							}
 						} else {
 							_stabSound.setBuffer(*SoundPool::GetInstance()->PlayStab());
@@ -161,7 +189,7 @@ namespace PS
 
 		if(_priest->GetAnimationTimer() > 0.09 && _currentAnimal && _isKilling)
 		{
-			_currentAnimal->Kill();
+			_currentAnimal->Kill(_fuckYeah);
 			_currentAnimal = nullptr;
 			_isKilling = false;
 		}
@@ -172,7 +200,7 @@ namespace PS
 		{
 			if(_currentAnimal)
 			{
-				_currentAnimal->Kill();
+				_currentAnimal->Kill(false);
 				_currentAnimal = nullptr;
 
 				if(_background->RemoveLife())

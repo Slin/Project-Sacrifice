@@ -26,7 +26,7 @@ namespace PS
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *window);
 
-		void Kill();
+		void Kill(bool fuckYeah);
 		Type GetType()
 		{
 			return _type;
@@ -42,6 +42,8 @@ namespace PS
 
 		State _state;
 		Type _type;
+
+		bool _isMovingUp;
 
 		sf::Sprite *_object;
 		sf::Sprite *_leftHalf;

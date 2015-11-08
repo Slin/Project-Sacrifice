@@ -45,6 +45,8 @@ namespace PS
 
 		static World *GetInstance();
 
+		void Reset();
+
 		static const float WORLD_TO_BOX2D;
 
 	private:
@@ -68,6 +70,7 @@ namespace PS
 		bool _isKilling;
 		bool _keyWasPressed;
 		bool _isGameOver;
+		bool _fuckYeah;
 
 		float _spawnTime;
 

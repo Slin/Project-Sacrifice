@@ -28,6 +28,7 @@ namespace PS
 		void RemoveEntity(Entity *entity);
 		void Update(float timeStep);
 		void Draw(sf::RenderWindow *windows);
+		void RemoveAllEntities();
 
 		static EntityManager *GetInstance();
 	};
