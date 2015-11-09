@@ -52,6 +52,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Detect and add SFML
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
+set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 REQUIRED system window graphics audio)
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
