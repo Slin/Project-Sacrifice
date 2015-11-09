@@ -59,7 +59,7 @@ if(SFML_FOUND)
 endif()
 
 # Detect and add BOX2D
-find_package(BOX2D REQUIRED)
+find_package(Box2D REQUIRED)
 if(BOX2D_FOUND)
     include_directories(${BOX2D_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} ${BOX2D_LIBRARIES})
