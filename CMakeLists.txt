@@ -7,7 +7,7 @@ project(Project-Sacrifice)
 #    set(CMAKE_BUILD_TYPE Debug)
 #endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") # -DSFML_STATIC")
 
 # (you can also set it on the command line: -D CMAKE_BUILD_TYPE=Release)
 
@@ -52,7 +52,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Detect and add SFML
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
-set(SFML_STATIC_LIBRARIES TRUE)
+#set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 REQUIRED system window graphics audio)
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
