@@ -182,6 +182,12 @@ namespace PS
 					_window->close();
 			}
 
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				_window->close();
+				break;
+			}
+
 			deltaTime = clock.getElapsedTime();
 			time += deltaTime;
 			clock.restart();
