@@ -47,7 +47,7 @@ namespace PS
 		_bundlePath = "";
 #endif
 
-		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");//, sf::Style::Fullscreen);
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice", sf::Style::Fullscreen);
 		_scaleFactor = _window->getSize().y / 1080.0f;
 
 		_menuFont.loadFromFile(GetBundlePath()+"assets/fonts/troika.otf");
