@@ -14,6 +14,11 @@
 #include "Slave.h"
 #include "EndFelsen.h"
 #include <iostream>
+
+#if __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 namespace PS
 {
 	World *World::_instance = 0;
@@ -29,10 +34,23 @@ namespace PS
 
 	World::World() : _physicsWorld(nullptr), _background(nullptr)
 	{
-		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice", sf::Style::Fullscreen);
+#if __APPLE__ && NDEBUG
+		CFBundleRef bundle = CFBundleGetMainBundle();
+		CFURLRef url = CFBundleCopyBundleURL(bundle);
+
+		CFStringRef urlString = CFURLCopyPath(url);
+
+		const char *file = CFStringGetCStringPtr(urlString, kCFStringEncodingUTF8);
+		_bundlePath = file;
+		_bundlePath += "Contents/Resources/";
+#else
+		_bundlePath = "";
+#endif
+
+		_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Project Sacrifice");//, sf::Style::Fullscreen);
 		_scaleFactor = _window->getSize().y / 1080.0f;
 
-		_menuFont.loadFromFile("assets/fonts/troika.otf");
+		_menuFont.loadFromFile(GetBundlePath()+"assets/fonts/troika.otf");
 
 		_menuText.setFont(_menuFont);
 		_menuText.setString("Press SPACE to start the game.");
@@ -99,13 +117,6 @@ namespace PS
 		_popupText.setOrigin(_popupText.getLocalBounds().width*.5f, _popupText.getLocalBounds().height * 0.5f);
 		_popupText.setScale(_scaleFactor, _scaleFactor);
 		_popupText.setPosition(_window->getSize().x*.5f, _window->getSize().y*.5f);
-
-		_titleSprite.setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Logo.png"));
-		_titleSprite.setOrigin(_titleSprite.getLocalBounds().width/2.0f, _titleSprite.getLocalBounds().height/2.0f);
-		_titleSprite.setScale(_scaleFactor, _scaleFactor);
-		_titleSprite.setPosition(_window->getSize().x*0.5f, _window->getSize().y*0.5f);
-
-		_lostSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/end.ogg"));
 	}
 
 	void World::Reset()
@@ -143,12 +154,18 @@ namespace PS
 
 		_showPopup=false;
 		_popupTimer=0;
-
 	}
 
 	void World::Loop()
 	{
-		_music.openFromFile("assets/sounds/Song15.ogg");
+		_titleSprite.setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/Logo.png"));
+		_titleSprite.setOrigin(_titleSprite.getLocalBounds().width/2.0f, _titleSprite.getLocalBounds().height/2.0f);
+		_titleSprite.setScale(_scaleFactor, _scaleFactor);
+		_titleSprite.setPosition(_window->getSize().x*0.5f, _window->getSize().y*0.5f);
+
+		_lostSound.setBuffer(*SoundPool::GetInstance()->GetSound("assets/sounds/end.ogg"));
+
+		_music.openFromFile(GetBundlePath()+"assets/sounds/Song15.ogg");
 		//_music.setLoop(true);
 
 		Reset();
@@ -457,5 +474,10 @@ namespace PS
 		_popupText.setScale(0,0);
 		_popupText.setString(text);
 		_showPopup=true;
+	}
+
+	const std::string &World::GetBundlePath() const
+	{
+		return _bundlePath;
 	}
 }

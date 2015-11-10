@@ -3,6 +3,7 @@
 //
 
 #include "TexturePool.h"
+#include "World.h"
 
 namespace PS
 {
@@ -28,7 +29,7 @@ namespace PS
 	{
 		sf::Texture *texture;
 		texture = new sf::Texture();//
-		texture->loadFromFile(textureName);
+		texture->loadFromFile(World::GetInstance()->GetBundlePath()+textureName);
 		texture->setSmooth(true);
 		_textureMap.insert(std::pair<std::string, sf::Texture *>(textureName, texture));
 	}

@@ -23,7 +23,7 @@ namespace PS{
 	void SoundPool::LoadSound(std::string sound)
 	{
 		sf::SoundBuffer* buf = new sf::SoundBuffer();
-		buf->loadFromFile(sound);
+		buf->loadFromFile(World::GetInstance()->GetBundlePath()+sound);
 		soundMap.insert(std::pair<std::string,sf::SoundBuffer*>(sound,buf));
 	}
 	sf::SoundBuffer *SoundPool::GetSound(std::string sound)

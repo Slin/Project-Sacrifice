@@ -66,6 +66,9 @@ if(BOX2D_FOUND)
     target_link_libraries(${EXECUTABLE_NAME} ${BOX2D_LIBRARIES})
 endif()
 
+if(APPLE)
+    SET(CMAKE_EXE_LINKER_FLAGS "-framework Foundation -w")
+endif()
 
 # Install target
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)

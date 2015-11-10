@@ -45,6 +45,8 @@ namespace PS
 			return _window;
 		}
 
+		const std::string &GetBundlePath() const;
+
 		static World *GetInstance();
 
 		void Reset();
@@ -67,6 +69,8 @@ namespace PS
 		ParticleEmitter *_bloodParticles;
 		Background *_background;
 		Keys *_keys;
+
+		std::string _bundlePath;
 
 
 		bool _isKilling;
