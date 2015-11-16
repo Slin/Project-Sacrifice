@@ -13,9 +13,9 @@ namespace PS
 
 		_object = new sf::Sprite();
 		_object->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/priester.png"));
-		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
 		_object->setTextureRect(sf::IntRect(0.0f, 0.0f, 194, 361));
-		_object->setOrigin(_object->getGlobalBounds().width*0.5f, _object->getGlobalBounds().height*0.5f);
+		_object->setScale(World::GetInstance()->GetScaleFactor(), World::GetInstance()->GetScaleFactor());
+		_object->setOrigin(_object->getLocalBounds().width*0.5f, _object->getLocalBounds().height*0.5f);
 		_object->setPosition(World::GetInstance()->GetWindow()->getSize().x*0.5f, 485.0f*World::GetInstance()->GetScaleFactor());
 	}
 

@@ -22,19 +22,22 @@
 namespace PS
 {
 	World *World::_instance = 0;
-	const float World::WORLD_TO_BOX2D = 0.01f;
+	float World::WORLD_TO_BOX2D = 0.01f;
 
 	World *World::GetInstance()
 	{
 		if(!_instance)
+		{
 			_instance = new World();
+			WORLD_TO_BOX2D /= _instance->GetScaleFactor();
+		}
 
 		return _instance;
 	}
 
 	World::World() : _physicsWorld(nullptr), _background(nullptr)
 	{
-#if __APPLE__ && NDEBUG
+#if __APPLE__ && !(TARGET_OS_IPHONE) && NDEBUG
 		CFBundleRef bundle = CFBundleGetMainBundle();
 		CFURLRef url = CFBundleCopyBundleURL(bundle);
 
@@ -75,7 +78,7 @@ namespace PS
 		_gameOverScoreText.setCharacterSize(60.0f);
 		_gameOverScoreText.setOrigin(_gameOverScoreText.getLocalBounds().width*.5f, _gameOverScoreText.getLocalBounds().height * 0.5f);
 		_gameOverScoreText.setScale(_scaleFactor, _scaleFactor);
-		_gameOverScoreText.setPosition(_window->getSize().x*.5f, _gameOverText.getPosition().y + _gameOverText.getLocalBounds().height * 1.5f);
+		_gameOverScoreText.setPosition(_window->getSize().x*.5f, _gameOverText.getPosition().y + _gameOverText.getGlobalBounds().height * 1.5f);
 		
 		_gameOverSuccessText.setFont(_menuFont);
 		_gameOverSuccessText.setString("Successful sacrifices: ");
@@ -83,7 +86,7 @@ namespace PS
 		_gameOverSuccessText.setCharacterSize(60.0f);
 		_gameOverSuccessText.setOrigin(_gameOverSuccessText.getLocalBounds().width*.5f, _gameOverSuccessText.getLocalBounds().height * 0.5f);
 		_gameOverSuccessText.setScale(_scaleFactor, _scaleFactor);
-		_gameOverSuccessText.setPosition(_window->getSize().x*.5f, _gameOverScoreText.getPosition().y + _gameOverScoreText.getLocalBounds().height* 1.5f);
+		_gameOverSuccessText.setPosition(_window->getSize().x*.5f, _gameOverScoreText.getPosition().y + _gameOverScoreText.getGlobalBounds().height* 1.5f);
 		
 		_gameOverFailText.setFont(_menuFont);
 		_gameOverFailText.setString("Failed sacrifices: ");
@@ -91,7 +94,7 @@ namespace PS
 		_gameOverFailText.setCharacterSize(60.0f);
 		_gameOverFailText.setOrigin(_gameOverFailText.getLocalBounds().width*.5f, _gameOverFailText.getLocalBounds().height * 0.5f);
 		_gameOverFailText.setScale(_scaleFactor, _scaleFactor);
-		_gameOverFailText.setPosition(_window->getSize().x*.5f, _gameOverSuccessText.getPosition().y + _gameOverScoreText.getLocalBounds().height*1.5f);
+		_gameOverFailText.setPosition(_window->getSize().x*.5f, _gameOverSuccessText.getPosition().y + _gameOverScoreText.getGlobalBounds().height*1.5f);
 		
 		
 		_scoreText.setFont(_menuFont);
@@ -100,7 +103,7 @@ namespace PS
 		_scoreText.setCharacterSize(60.0f);
 		_scoreText.setOrigin(_scoreText.getLocalBounds().width * 0.5f, _scoreText.getLocalBounds().height * 0.5f);
 		_scoreText.setScale(_scaleFactor, _scaleFactor);
-		_scoreText.setPosition((_scoreText.getLocalBounds().width/2.f)+_scoreText.getLocalBounds().height*.5f, _scoreText.getLocalBounds().height);
+		_scoreText.setPosition((_scoreText.getGlobalBounds().width/2.f)+_scoreText.getGlobalBounds().height*.5f, _scoreText.getGlobalBounds().height);
 
 		_stageText.setFont(_menuFont);
 		_stageText.setString("Stage: 0");
@@ -108,7 +111,7 @@ namespace PS
 		_stageText.setCharacterSize(60.0f);
 		_stageText.setOrigin(_stageText.getLocalBounds().width * 0.5f, _stageText.getLocalBounds().height * 0.5f);
 		_stageText.setScale(_scaleFactor, _scaleFactor);
-		_stageText.setPosition(_window->getSize().x-(_stageText.getLocalBounds().width*.5f)-_stageText.getLocalBounds().height*.5f, _stageText.getLocalBounds().height);
+		_stageText.setPosition(_window->getSize().x-(_stageText.getGlobalBounds().width*.5f)-_stageText.getGlobalBounds().height*.5f, _stageText.getGlobalBounds().height);
 
 		_popupText.setFont(_menuFont);
 		_popupText.setString("100 Points");
@@ -175,11 +178,18 @@ namespace PS
 
 		while(_window->isOpen())
 		{
-			sf::Event Event;
-			while(_window->pollEvent(Event))
+			sf::Event event;
+			while(_window->pollEvent(event))
 			{
-				if(Event.type == sf::Event::Closed)
+				if(event.type == sf::Event::Closed)
+				{
 					_window->close();
+				}
+				
+				if(event.type == sf::Event::TouchMoved)
+				{
+					//event.
+				}
 			}
 
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -267,13 +277,16 @@ namespace PS
 	bool World::AnyKeyPressed()
 	{
 		return (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
-				sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
+				sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Touch::isDown(0));
 	}
 
 	bool World::IsCorrectKeyPressed()
 	{
 		if(_currentAnimal)
 		{
+			if(sf::Touch::isDown(0))
+				return true;
+			
 			switch(_currentAnimal->GetType())
 			{
 				case Animal::Type::Opfer:
@@ -302,7 +315,7 @@ namespace PS
 	{
 		if(_isMenu)
 		{
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Touch::isDown(0))
 			{
 				if(!_keyWasPressed)
 				{
@@ -317,7 +330,7 @@ namespace PS
 			return;
 		}
 
-		if(_isGameOver && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if(_isGameOver && (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Touch::isDown(0)))
 		{
 			Reset();
 			_keyWasPressed = true;

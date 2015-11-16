@@ -51,7 +51,7 @@ namespace PS
 
 		void Reset();
 
-		static const float WORLD_TO_BOX2D;
+		static float WORLD_TO_BOX2D;
 
 	private:
 		World();

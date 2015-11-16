@@ -26,9 +26,9 @@ namespace PS
 	void EndFelsen::Update(float timeStep)
 	{
 		_felsen->move(0.0f, _fallSpeed);
-		if(_felsen->getPosition().y > 350.0f)
+		if(_felsen->getPosition().y > 350.0f*World::GetInstance()->GetScaleFactor())
 		{
-			_felsen->setPosition(_felsen->getPosition().x, 350.0f);
+			_felsen->setPosition(_felsen->getPosition().x, 350.0f*World::GetInstance()->GetScaleFactor());
 
 			if(!_BAM)
 			{

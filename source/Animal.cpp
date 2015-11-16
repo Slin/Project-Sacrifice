@@ -102,7 +102,7 @@ namespace PS
 			bodyDef.type = b2_dynamicBody;
 			bodyDef.position.Set(_leftHalf->getPosition().x*World::WORLD_TO_BOX2D, _leftHalf->getPosition().y*World::WORLD_TO_BOX2D);
 			_leftHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
-			dynamicBox.SetAsBox(_leftHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _leftHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
+			dynamicBox.SetAsBox(_leftHalf->getGlobalBounds().width*0.5f*World::WORLD_TO_BOX2D*0.5f, _leftHalf->getGlobalBounds().height*0.5f*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
 			fixtureDef.density = 1.0f;
 			fixtureDef.friction = 0.3f;
@@ -110,7 +110,7 @@ namespace PS
 
 			bodyDef.position.Set(_rightHalf->getPosition().x*World::WORLD_TO_BOX2D, _rightHalf->getPosition().y*World::WORLD_TO_BOX2D);
 			_rightHalfBody = World::GetInstance()->GetPhysicsWorld()->CreateBody(&bodyDef);
-			dynamicBox.SetAsBox(_rightHalf->getOrigin().x*World::WORLD_TO_BOX2D*0.5f, _rightHalf->getOrigin().y*World::WORLD_TO_BOX2D*0.5f);
+			dynamicBox.SetAsBox(_rightHalf->getGlobalBounds().width*0.5f*World::WORLD_TO_BOX2D*0.5f, _rightHalf->getGlobalBounds().height*0.5f*World::WORLD_TO_BOX2D*0.5f);
 			fixtureDef.shape = &dynamicBox;
 			fixtureDef.density = 1.0f;
 			fixtureDef.friction = 0.3f;

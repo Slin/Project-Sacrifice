@@ -535,7 +535,7 @@ namespace PS
 			float forceModuleSq = reactionForce.LengthSquared();
 
 			if(forceModuleSq > 45000 && forceModuleSq< 50000)
-			{std::cout << "force: " << forceModuleSq << std::endl;
+			{
 				World::GetInstance()->GetPhysicsWorld()->DestroyJoint(joint);
 				return true;
 			}
