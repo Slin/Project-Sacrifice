@@ -56,7 +56,12 @@ namespace PS
 		_menuFont.loadFromFile(GetBundlePath()+"assets/fonts/troika.otf");
 
 		_menuText.setFont(_menuFont);
+		
+#if __APPLE__ && TARGET_OS_IPHONE
+		_menuText.setString("Tap anywhere to start the game.");
+#else
 		_menuText.setString("Press SPACE to start the game.");
+#endif
 		_menuText.setColor(sf::Color::White);
 		_menuText.setCharacterSize(60.0f);
 		_menuText.setOrigin(_menuText.getLocalBounds().width * 0.5f, _menuText.getLocalBounds().height * 0.5f);
