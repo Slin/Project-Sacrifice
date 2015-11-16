@@ -9,6 +9,8 @@ namespace PS
 {
 	Background::Background()
 	{
+		_animationTimer = 0.0f;
+
 		World *world = World::GetInstance();
 		_mainBackground = new sf::Sprite();
 		_mainBackground->setTexture(*TexturePool::GetInstance()->GetTexture("assets/textures/background.png"));
