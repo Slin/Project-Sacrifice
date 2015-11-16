@@ -137,6 +137,9 @@ namespace PS
 		_isGameOver = false;
 		_fuckYeah = false;
 		_isMenu = true;
+		
+		_gesture = None;
+		_isGestureActive = false;
 
 		_background = new Background();
 		_priest = new Priest();
@@ -186,9 +189,54 @@ namespace PS
 					_window->close();
 				}
 				
-				if(event.type == sf::Event::TouchMoved)
+				if(event.touch.finger > 0)
 				{
-					//event.
+					continue;
+				}
+				
+				if(event.type == sf::Event::TouchBegan)
+				{
+					_isGestureActive = true;
+					_initialTouchX = event.touch.x;
+					_initialTouchY = event.touch.y;
+				}
+				
+				if(event.type == sf::Event::TouchMoved && _isGestureActive)
+				{
+					int diffx = event.touch.x - _initialTouchX;
+					int diffy = event.touch.y - _initialTouchY;
+					
+					if(abs(diffx) > abs(diffy))
+					{
+						if(diffx > 20)
+						{
+							_gesture = Right;
+							_isGestureActive = false;
+						}
+						if(diffx < -20)
+						{
+							_gesture = Left;
+							_isGestureActive = false;
+						}
+					}
+					else
+					{
+						if(diffy > 20)
+						{
+							_gesture = Down;
+							_isGestureActive = false;
+						}
+						if(diffy < -20)
+						{
+							_gesture = Up;
+							_isGestureActive = false;
+						}
+					}
+				}
+				
+				if(event.type == sf::Event::TouchEnded)
+				{
+					_isGestureActive = false;
 				}
 			}
 
@@ -277,37 +325,49 @@ namespace PS
 	bool World::AnyKeyPressed()
 	{
 		return (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
-				sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Touch::isDown(0));
+				sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || _gesture != None);
 	}
 
 	bool World::IsCorrectKeyPressed()
 	{
 		if(_currentAnimal)
 		{
-			if(sf::Touch::isDown(0))
-				return true;
-			
 			switch(_currentAnimal->GetType())
 			{
 				case Animal::Type::Opfer:
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || _gesture == Down)
+					{
+						_gesture = None;
 						return true;
+					}
 					break;
 				case Animal::Type::Pig:
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || _gesture == Left)
+					{
+						_gesture = None;
 						return true;
+					}
 					break;
 				case Animal::Type::Sheep:
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || _gesture == Right)
+					{
+						_gesture = None;
 						return true;
+					}
 					break;
 				case Animal::Type::Baby:
-					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || _gesture == Up)
+					{
+						_gesture = None;
 						return true;
+					}
+					break;
+				default:
 					break;
 			}
 		}
 
+		_gesture = None;
 		return false;
 	}
 

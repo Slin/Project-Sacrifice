@@ -54,6 +54,15 @@ namespace PS
 		static float WORLD_TO_BOX2D;
 
 	private:
+		enum Swipe
+		{
+			Left,
+			Right,
+			Up,
+			Down,
+			None
+		};
+		
 		World();
 		static World *_instance;
 
@@ -79,7 +88,10 @@ namespace PS
 		bool _isMenu;
 		bool _fuckYeah;
 
-
+		bool _isGestureActive;
+		int _initialTouchX;
+		int _initialTouchY;
+		Swipe _gesture;
 
 		sf::Sound _splatSound;
 		sf::Sound _stabSound;
